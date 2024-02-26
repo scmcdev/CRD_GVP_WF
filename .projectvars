@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<projectvars:ProjectVariables xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:projectvars="http://studio.genesyslab.com/projectvars">
+  <variables name="pvLG" value="''" description="Enter Description" type="User" scope="Project"/>
+  <variables name="pvLT" value="''" description="Enter Description" type="User" scope="Project"/>
+  <variables name="pvPSAPCode" value="''" description="Enter Description" type="User" scope="Project"/>
+</projectvars:ProjectVariables>
