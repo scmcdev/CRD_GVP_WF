@@ -41,13 +41,6 @@
 				// actual initialization is done in the entry block so expression evaluation exceptions can be caught.
 				// there must be NO error in this part. all variables have to be declared before any error is raised so we can safely execute any error branch in the application.
 				var App_Entry1 = new Object();
-				var constAMLUrl = undefined;
-				var constBKKLatitude = undefined;
-				var constBKKLongtitude = undefined;
-				var constCHMLatitude = undefined;
-				var constCHMLongtitude = undefined;
-				var constHKTLatitude = undefined;
-				var constHKTLongtitude = undefined;
 				var gvp_exitmenu_main = undefined;
 				var gvp_exitmenu_survey = undefined;
 				var gvp_opm_main = undefined;
@@ -74,13 +67,6 @@
 				var varHttpResp = undefined;
 				var varHttpStatus = undefined;
 				var varInputValue = undefined;
-				var varMPAlg = undefined;
-				var varMPAlt = undefined;
-				var varMPAResponseCode = undefined;
-				var varMPAReturn = undefined;
-				var varMPARetValue = undefined;
-				var varMPASelPSAP = undefined;
-				var varMPAURL = undefined;
 				var varPlaceExpr1 = undefined;
 				var varPlaceExpr2 = undefined;
 				var varPlaceExpr3 = undefined;
@@ -104,28 +90,59 @@
 				var varSurveyPayload = undefined;
 				var varPlayAppResource = undefined;
 				var varDefaultIVRProfile = undefined;
+				var blacklistOpmName = undefined;
+				var whitelistOpmName = undefined;
+				var varCustLevel = undefined;
+				var restRespStatus = undefined;
+				var restStatusCode = undefined;
+				var varVipIVRProfile = undefined;
+				var varVVipIVRProfile = undefined;
+				var varCustomerGrading = undefined;
+				var gvp_exitmenu_vip = undefined;
+				var gvp_exitmenu_vvip = undefined;
+				var gvp_exitmenu = undefined;
+				var httpResponse = undefined;
+				var httpResult = undefined;
+				var wreqUrl = undefined;
+				var apiFirstName = undefined;
+				var apiLastName = undefined;
+				var apiCompany = undefined;
+				var apiBlacklist = undefined;
+				var apiGrading = undefined;
+				var httpResponseStatus = undefined;
+				var httpStatusCode = undefined;
+				var gvp_extension = undefined;
 				var App_Exit1 = new Object();
 				var App_SetPSAP1Skill = new Object();
-				var App_TargetBySkill1 = new Object();
-				var App_udataSetCallInfo = new Object();
-				var App_TargetBySkill2 = new Object();
-				var App_TargetBySkill3 = new Object();
-				var App_TargetPlace1 = new Object();
-				var App_TargetPlace2 = new Object();
-				var App_TargetPlace3 = new Object();
-				var App_CheckDN = new Object();
 				var App_playMain = new Object();
 				var App_Disconnect1 = new Object();
 				var App_emsSetMainParam = new Object();
 				var App_emsSetSurveyParam = new Object();
-				var App_OPM1 = new Object();
-				var App_playGreeting = new Object();
 				var App_GetScore = new Object();
 				var App_restSaveSurveyScore = new Object();
 				var App_setRequestBody1 = new Object();
 				var App_playThanks = new Object();
-				var App_WebRequest1 = new Object();
 				var App_UserData1 = new Object();
+				var App_emsCheckBlacklist = new Object();
+				var App_Disconnect2 = new Object();
+				var App_emsCheckWhitelist = new Object();
+				var App_bchIsVIP = new Object();
+				var App_TargetBySkill1 = new Object();
+				var App_TargetByAG = new Object();
+				var App_playVip = new Object();
+				var App_emsSetVipParam = new Object();
+				var App_UserDataVip = new Object();
+				var App_bchExitVip = new Object();
+				var App_playVVip = new Object();
+				var App_emsSetVVipParam = new Object();
+				var App_UserDataVVip = new Object();
+				var App_bchExitVVip = new Object();
+				var App_wreqGetCallerDetail = new Object();
+				var App_emsParseApiResult = new Object();
+				var App_restGetProfile = new Object();
+				var App_emsExitVip = new Object();
+				var App_emsExitVVip = new Object();
+				var App_OriginateDN = new Object();
 			</script>
 		</onentry>
 		
@@ -146,13 +163,6 @@
 				<script>
 					// update the system and user variables with values set by the user in the variables dialog
 					system.diagram = 'Main';
-					constAMLUrl = 'http://192.168.2.101/sms/service/sendlocation?sos=A&quot;ML=1;lt=+[LAT];lg=+[LONG];rd=50;top=20130717141935;lc=90;pm=W;si=123456789012345;ei=1234567890123456;mcc=234;mnc=30;ml=128&amp;tel=[TELNO]&amp;source=01';
-					constBKKLatitude = 13.736717;
-					constBKKLongtitude = 100.523186;
-					constCHMLatitude = 16.4243;
-					constCHMLongtitude = 101.1617;
-					constHKTLatitude = 12.9035;
-					constHKTLongtitude = 99.6341;
 					gvp_exitmenu_main = undefined;
 					gvp_exitmenu_survey = undefined;
 					gvp_opm_main = undefined;
@@ -196,13 +206,6 @@
 					varHttpResp = undefined;
 					varHttpStatus = undefined;
 					varInputValue = '';
-					varMPAlg = undefined;
-					varMPAlt = undefined;
-					varMPAResponseCode = undefined;
-					varMPAReturn = '';
-					varMPARetValue = undefined;
-					varMPASelPSAP = '';
-					varMPAURL = 'https://app.mappointasia.com/sms/service/getlocation?tel=0820779000';
 					varPlaceExpr1 = undefined;
 					varPlaceExpr2 = undefined;
 					varPlaceExpr3 = undefined;
@@ -226,13 +229,35 @@
 					varSurveyPayload = undefined;
 					varPlayAppResource = &quot;http://192.168.2.161:9001/GHB_GVP_Callflow-20240222174004.804/src-gen/Main.vxml&quot;;
 					varDefaultIVRProfile = 'GHB_POC_IVRPROF';
+					blacklistOpmName = 'GHB_GVP_BLACKLIST';
+					whitelistOpmName = 'GHB_GVP_WHITELIST';
+					varCustLevel = 'n/a';
+					restRespStatus = undefined;
+					restStatusCode = undefined;
+					varVipIVRProfile = 'GHB_VIP_IVRPROF';
+					varVVipIVRProfile = 'GHB_VVIP_IVRPROF';
+					varCustomerGrading = '';
+					gvp_exitmenu_vip = '';
+					gvp_exitmenu_vvip = '';
+					gvp_exitmenu = undefined;
+					httpResponse = undefined;
+					httpResult = undefined;
+					wreqUrl = 'https://wizdemo-api.wiz-solution.com/v1/apienpoint/genesys/getDetailByPhoneKey';
+					apiFirstName = undefined;
+					apiLastName = undefined;
+					apiCompany = undefined;
+					apiBlacklist = undefined;
+					apiGrading = undefined;
+					httpResponseStatus = undefined;
+					httpStatusCode = undefined;
+					gvp_extension = undefined;
 				</script>
 				<log expr="'RelativePathURL = ' + system.RelativePathURL" />
 				<send event="'Entry1.done'">
     	<param name="resolveid" expr="_my_prefix"/>
     	</send>
 			</onentry>
-			<transition event="Entry1.done" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$.CheckDN">
+			<transition event="Entry1.done" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$.OriginateDN">
 				<script>storeEvent("Entry1", _event);</script>
 			</transition>
 		</state>
@@ -272,846 +297,13 @@
 						
 					varSkillExpr = '?:(psap1 &gt; 0)@Stat_Server_DC1.GA';					
 						
-					varSkillExpr1 = '?:(psap1 &gt; 0)@Stat_Server_DC1.GA';					
-						
-					varSkillExpr2 = '?:(psap2 &gt; 0)@Stat_Server_DC1.GA';					
-						
-					varSkillExpr3 = '?:(psap3 &gt; 0)@Stat_Server_DC1.GA';					
-						
-					varPlaceExpr1 = 'Place_7001@Stat_Server_DC1.AP';					
-						
-					varPlaceExpr2 = 'Place_7004@Stat_Server_DC1.AP';					
-						
-					varPlaceExpr3 = 'Place_7007@Stat_Server_DC1.AP';					
-						
 				</script>
 				<send event="'SetPSAP1Skill.script.done'">
     	<param name="resolveid" expr="_my_prefix"/>
     	</send>
 			</onentry>
-			<transition event="SetPSAP1Skill.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.udataSetCallInfo">
+			<transition event="SetPSAP1Skill.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.TargetBySkill1">
 				<script>storeEvent("SetPSAP1Skill", _event);</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetBySkill1 State -->
-		<state id="TargetBySkill1">
-						
-			
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._check_Agent_Availability_TargetBySkill1">
-					<log expr="_sessionid + ': Inside Target Block: TargetBySkill1 '"/>
-				<log expr="'varSkillExpr - ' + varSkillExpr" level="2" />
-				</transition>
-			</initial>
-			<state id="_check_Agent_Availability_TargetBySkill1">
-				<onentry>
-					<log expr="_sessionid + ': Check agent Availability : TargetBySkill1 '"/>
-				</onentry>
-				
-				<transition cond="_genesys.statistic.sData('ghb0002@'+'Stat_Server_DC1'+'.A','StatAgentsAvailable')>0" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_submit">
-					<log expr="_sessionid + ': Agents available for target type:Agent name:ghb0002 : proceed to queue submit'"/>					
-				</transition>																
-				<transition target="$$_MY_PREFIX_$$.TargetBySkill2">
-					<log expr="'Agent not available for any of the specified tagrets, skipping the block'"/>					
-				</transition>
-			</state>
-			
-			<state id="_reserved_TargetBySkill1_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetBySkill1['requestid']" interactionid="system.InteractionID" timeout="10" clearontimeout="true" ordertype="'max'" orderstat="'StatAgentLoading'">
-						<queue:targets>
-							<queue:target name="'ghb0002'" type="agent" statserver="'Stat_Server_DC1'"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetBySkill1['requestid']">
-					<script>storeEvent("TargetBySkill1", _event);</script>
-					<assign location="App_TargetBySkill1['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetBySkill1'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetBySkill1", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetBySkill1['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetBySkill1_submit_delay">
-				<onentry>
-					<send event="'TargetBySkill1.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetBySkill1.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_detach"/>
-			</state>
-			<state id="_reserved_TargetBySkill1_detach" initial="$$_MY_PREFIX_$$._reserved_TargetBySkill1_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetBySkill1_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetBySkill1_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetBySkill1['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_redirect">
-						<script>storeEvent("TargetBySkill1", _event);</script>
-				<assign location="App_TargetBySkill1['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetBySkill1['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetBySkill1_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetBySkill1_detach_delay">
-					<onentry>
-						<send event="'TargetBySkill1.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetBySkill1.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetBySkill1_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetBySkill1['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetBySkill1['requestid']">
-					<script>storeEvent("TargetBySkill1", _event);</script>
-				<assign location="App_TargetBySkill1['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetBySkill1['requestid'] = App_TargetBySkill1['error.rethrow'].params.requestid;
-						__Raise(App_TargetBySkill1['error.rethrow'].name, App_TargetBySkill1['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill1_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill1_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetBySkill1 '" />
-					<ixn:redirect detach="true" requestid="App_TargetBySkill1['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetBySkill1['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetBySkill1", _event);</script>
-				<assign location="App_TargetBySkill1['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$.TargetBySkill2">
-				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill1", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetBySkill1['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetBySkill2">
-				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill1", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill1", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetBySkill2 State -->
-		<state id="TargetBySkill2">
-						
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_submit">
-					<log expr="_sessionid + ': Inside Target Block: TargetBySkill2 '"/>
-				<log expr="'varSkillExpr - ' + varSkillExpr" level="2" />
-				</transition>
-			</initial>
-			
-			<state id="_reserved_TargetBySkill2_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetBySkill2['requestid']" interactionid="system.InteractionID" timeout="10" clearontimeout="false" ordertype="'max'" orderstat="'StatAgentLoading'">
-						<queue:targets>
-							<queue:targetid expr="varSkillExpr2"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetBySkill2['requestid']">
-					<script>storeEvent("TargetBySkill2", _event);</script>
-					<assign location="App_TargetBySkill2['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetBySkill2['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetBySkill2'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetBySkill2", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetBySkill2['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetBySkill2_submit_delay">
-				<onentry>
-					<send event="'TargetBySkill2.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetBySkill2.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_detach"/>
-			</state>
-			<state id="_reserved_TargetBySkill2_detach" initial="$$_MY_PREFIX_$$._reserved_TargetBySkill2_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetBySkill2_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetBySkill2_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetBySkill2['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetBySkill2['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_redirect">
-						<script>storeEvent("TargetBySkill2", _event);</script>
-				<assign location="App_TargetBySkill2['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetBySkill2['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetBySkill2_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetBySkill2_detach_delay">
-					<onentry>
-						<send event="'TargetBySkill2.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetBySkill2.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetBySkill2_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetBySkill2['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetBySkill2['requestid']">
-					<script>storeEvent("TargetBySkill2", _event);</script>
-				<assign location="App_TargetBySkill2['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetBySkill2['requestid'] = App_TargetBySkill2['error.rethrow'].params.requestid;
-						__Raise(App_TargetBySkill2['error.rethrow'].name, App_TargetBySkill2['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill2_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill2_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill2_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetBySkill2 '" />
-					<ixn:redirect detach="true" requestid="App_TargetBySkill2['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetBySkill2['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetBySkill2['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetBySkill2", _event);</script>
-				<assign location="App_TargetBySkill2['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetBySkill2['requestid']" target="$$_MY_PREFIX_$$.TargetBySkill3">
-				<log expr="'Composer Application: Main Block: TargetBySkill2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill2", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetBySkill2['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetBySkill3">
-				<log expr="'Composer Application: Main Block: TargetBySkill2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill2", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetBySkill2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill2", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetBySkill3 State -->
-		<state id="TargetBySkill3">
-						
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_submit">
-					<log expr="_sessionid + ': Inside Target Block: TargetBySkill3 '"/>
-				<log expr="'varSkillExpr - ' + varSkillExpr" level="2" />
-				</transition>
-			</initial>
-			
-			<state id="_reserved_TargetBySkill3_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetBySkill3['requestid']" interactionid="system.InteractionID" timeout="99999" clearontimeout="false" ordertype="'max'" orderstat="'StatAgentLoading'">
-						<queue:targets>
-							<queue:targetid expr="varSkillExpr3"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetBySkill3['requestid']">
-					<script>storeEvent("TargetBySkill3", _event);</script>
-					<assign location="App_TargetBySkill3['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetBySkill3['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetBySkill3'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetBySkill3", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetBySkill3['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetBySkill3_submit_delay">
-				<onentry>
-					<send event="'TargetBySkill3.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetBySkill3.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_detach"/>
-			</state>
-			<state id="_reserved_TargetBySkill3_detach" initial="$$_MY_PREFIX_$$._reserved_TargetBySkill3_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetBySkill3_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetBySkill3_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetBySkill3['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetBySkill3['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_redirect">
-						<script>storeEvent("TargetBySkill3", _event);</script>
-				<assign location="App_TargetBySkill3['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetBySkill3['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetBySkill3_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetBySkill3_detach_delay">
-					<onentry>
-						<send event="'TargetBySkill3.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetBySkill3.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetBySkill3_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetBySkill3['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetBySkill3['requestid']">
-					<script>storeEvent("TargetBySkill3", _event);</script>
-				<assign location="App_TargetBySkill3['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetBySkill3['requestid'] = App_TargetBySkill3['error.rethrow'].params.requestid;
-						__Raise(App_TargetBySkill3['error.rethrow'].name, App_TargetBySkill3['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill3_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill3_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetBySkill3_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetBySkill3 '" />
-					<ixn:redirect detach="true" requestid="App_TargetBySkill3['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetBySkill3['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetBySkill3['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetBySkill3", _event);</script>
-				<assign location="App_TargetBySkill3['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetBySkill3['requestid']" target="$$_MY_PREFIX_$$.TargetPlace1">
-				<log expr="'Composer Application: Main Block: TargetBySkill3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill3", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetBySkill3['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetPlace1">
-				<log expr="'Composer Application: Main Block: TargetBySkill3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill3", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetBySkill3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetBySkill3", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetPlace1 State -->
-		<state id="TargetPlace1">
-						
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace1_submit">
-					<log expr="_sessionid + ': Inside Target Block: TargetPlace1 '"/>
-				<log expr="'varPlaceExpr1 - ' + varPlaceExpr1" level="2" />
-				</transition>
-			</initial>
-			
-			<state id="_reserved_TargetPlace1_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetPlace1['requestid']" interactionid="system.InteractionID" timeout="10" clearontimeout="false">
-						<queue:targets>
-							<queue:targetid expr="varPlaceExpr1"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetPlace1['requestid']">
-					<script>storeEvent("TargetPlace1", _event);</script>
-					<assign location="App_TargetPlace1['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetPlace1['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace1_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetPlace1'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetPlace1", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetPlace1['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetPlace1_submit_delay">
-				<onentry>
-					<send event="'TargetPlace1.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetPlace1.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetPlace1_detach"/>
-			</state>
-			<state id="_reserved_TargetPlace1_detach" initial="$$_MY_PREFIX_$$._reserved_TargetPlace1_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetPlace1_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetPlace1_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetPlace1['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetPlace1['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace1_redirect">
-						<script>storeEvent("TargetPlace1", _event);</script>
-				<assign location="App_TargetPlace1['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetPlace1['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetPlace1_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetPlace1_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetPlace1_detach_delay">
-					<onentry>
-						<send event="'TargetPlace1.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetPlace1.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetPlace1_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetPlace1_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetPlace1['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetPlace1['requestid']">
-					<script>storeEvent("TargetPlace1", _event);</script>
-				<assign location="App_TargetPlace1['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetPlace1['requestid'] = App_TargetPlace1['error.rethrow'].params.requestid;
-						__Raise(App_TargetPlace1['error.rethrow'].name, App_TargetPlace1['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace1_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace1_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace1_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetPlace1 '" />
-					<ixn:redirect detach="true" requestid="App_TargetPlace1['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetPlace1['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetPlace1['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetPlace1", _event);</script>
-				<assign location="App_TargetPlace1['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetPlace1['requestid']" target="$$_MY_PREFIX_$$.TargetPlace2">
-				<log expr="'Composer Application: Main Block: TargetPlace1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace1", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetPlace1['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetPlace2">
-				<log expr="'Composer Application: Main Block: TargetPlace1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace1", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetPlace1'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace1", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetPlace2 State -->
-		<state id="TargetPlace2">
-						
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace2_submit">
-					<log expr="_sessionid + ': Inside Target Block: TargetPlace2 '"/>
-				<log expr="'varPlaceExpr2 - ' + varPlaceExpr2" level="2" />
-				</transition>
-			</initial>
-			
-			<state id="_reserved_TargetPlace2_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetPlace2['requestid']" interactionid="system.InteractionID" timeout="10" clearontimeout="false">
-						<queue:targets>
-							<queue:targetid expr="varPlaceExpr2"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetPlace2['requestid']">
-					<script>storeEvent("TargetPlace2", _event);</script>
-					<assign location="App_TargetPlace2['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetPlace2['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace2_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetPlace2'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetPlace2", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetPlace2['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetPlace2_submit_delay">
-				<onentry>
-					<send event="'TargetPlace2.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetPlace2.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetPlace2_detach"/>
-			</state>
-			<state id="_reserved_TargetPlace2_detach" initial="$$_MY_PREFIX_$$._reserved_TargetPlace2_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetPlace2_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetPlace2_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetPlace2['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetPlace2['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace2_redirect">
-						<script>storeEvent("TargetPlace2", _event);</script>
-				<assign location="App_TargetPlace2['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetPlace2['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetPlace2_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetPlace2_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetPlace2_detach_delay">
-					<onentry>
-						<send event="'TargetPlace2.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetPlace2.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetPlace2_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetPlace2_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetPlace2['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetPlace2['requestid']">
-					<script>storeEvent("TargetPlace2", _event);</script>
-				<assign location="App_TargetPlace2['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetPlace2['requestid'] = App_TargetPlace2['error.rethrow'].params.requestid;
-						__Raise(App_TargetPlace2['error.rethrow'].name, App_TargetPlace2['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace2_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace2_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace2_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetPlace2 '" />
-					<ixn:redirect detach="true" requestid="App_TargetPlace2['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetPlace2['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetPlace2['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetPlace2", _event);</script>
-				<assign location="App_TargetPlace2['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetPlace2['requestid']" target="$$_MY_PREFIX_$$.TargetPlace3">
-				<log expr="'Composer Application: Main Block: TargetPlace2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace2", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetPlace2['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetPlace3">
-				<log expr="'Composer Application: Main Block: TargetPlace2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace2", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetPlace2'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace2", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the TargetPlace3 State -->
-		<state id="TargetPlace3">
-						
-			<initial>
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace3_submit">
-					<log expr="_sessionid + ': Inside Target Block: TargetPlace3 '"/>
-				<log expr="'varPlaceExpr3 - ' + varPlaceExpr3" level="2" />
-				</transition>
-			</initial>
-			
-			<state id="_reserved_TargetPlace3_submit">
-				<onentry>
-					<queue:submit route="false" requestid="App_TargetPlace3['requestid']" interactionid="system.InteractionID" timeout="99999" clearontimeout="false">
-						<queue:targets>
-							<queue:targetid expr="varPlaceExpr3"/>						
-						</queue:targets>
-					</queue:submit>
-				</onentry>
-				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetPlace3['requestid']">
-					<script>storeEvent("TargetPlace3", _event);</script>
-					<assign location="App_TargetPlace3['queue.submit.requestid']" expr="_event.data.requestid"/>
-					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-				</transition>
-				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetPlace3['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace3_fetch_deviation">
-					<log expr="'Target Selection DONE'" />
-					<log expr="'Composer Application:Main Block: TargetPlace3'" />
-					<log expr="'Target selected:' + _event.data.targetselected" />
-					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
-						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
-					<else/>
-						<log expr="'Interaction is null'" />
-					</if>
-					<script>storeEvent("TargetPlace3", _event);</script>
-					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
-					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
-					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
-					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
-					<assign location="App_TargetPlace3['targetResource']" expr="_event.data.resource"/>
-					</transition>
-			</state>
-			<state id="_reserved_TargetPlace3_submit_delay">
-				<onentry>
-					<send event="'TargetPlace3.aftersubmit.timeout.elapsed'" delay="'200ms'">
-					<param name="resolveid" expr="_my_prefix"/>
-					</send>
-				</onentry>
-				<transition event="TargetPlace3.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetPlace3_detach"/>
-			</state>
-			<state id="_reserved_TargetPlace3_detach" initial="$$_MY_PREFIX_$$._reserved_TargetPlace3_detach_run">
-				<onentry>
-					<log expr="'Detach the interaction ' + system.InteractionID"/>
-					<script>var App_TargetPlace3_Detach_Timeout = new Date().getTime() + 300;</script>
-				</onentry>
-				<state id="_reserved_TargetPlace3_detach_run">
-					<onentry>
-						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
-						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetPlace3['requestid']"/>
-					</onentry>
-					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetPlace3['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetPlace3_redirect">
-						<script>storeEvent("TargetPlace3", _event);</script>
-				<assign location="App_TargetPlace3['interaction.detach.requestid']" expr="_event.data.requestid"/>
-					</transition>
-					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetPlace3['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetPlace3_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetPlace3_detach_delay"/>
-				</state>
-				<state id="_reserved_TargetPlace3_detach_delay">
-					<onentry>
-						<send event="'TargetPlace3.afterdetach.timeout.elapsed'" delay="'200ms'"/>
-					</onentry>
-					<transition event="TargetPlace3.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetPlace3_detach_run"/>
-				</state>
-			</state>
-			<state id="_reserved_TargetPlace3_attach">
-				<onentry>
-					<log expr="'Attach the interaction back'" />
-					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetPlace3['requestid']"/>
-				</onentry>
-				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetPlace3['requestid']">
-					<script>storeEvent("TargetPlace3", _event);</script>
-				<assign location="App_TargetPlace3['interaction.attach.requestid']" expr="_event.data.requestid"/>
-					<script>
-						App_TargetPlace3['requestid'] = App_TargetPlace3['error.rethrow'].params.requestid;
-						__Raise(App_TargetPlace3['error.rethrow'].name, App_TargetPlace3['error.rethrow'].params);
-					</script>
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace3_fetch_deviation">
-				<transition target="$$_MY_PREFIX_$$._reserved_TargetPlace3_redirect">
-					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
-				</transition>
-			</state>
-			<state id="_reserved_TargetPlace3_redirect">
-				<onentry>
-					<log expr="_sessionid + ': Inside Target Redirect: TargetPlace3 '" />
-					<ixn:redirect detach="true" requestid="App_TargetPlace3['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetPlace3['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
-				</onentry>
-			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetPlace3['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<script>storeEvent("TargetPlace3", _event);</script>
-				<assign location="App_TargetPlace3['interaction.redirect.requestid']" expr="_event.data.requestid"/>
-			</transition>
-				
-			</state>
-			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetPlace3['requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetPlace3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace3", _event);
-				]]>
-				</script>
-				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
-			</transition>
-			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetPlace3['queue.submit.requestid']" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetPlace3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace3", _event);
-				]]>
-				</script>
-			</transition>
-			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
-				<log expr="'Composer Application: Main Block: TargetPlace3'" />
-				<log expr="'ERROR: ' + _event.toSource()" />
-				<script>
-				<![CDATA[
-					storeException("TargetPlace3", _event);
-				]]>
-				</script>
-			</transition>
-		</state>
-
-		<!-- This is the CheckDN State -->
-		<state id="CheckDN">
-			<onentry>
-				<log expr="_sessionid + ': Inside Branching Block: CheckDN'" />
-				<send event="'CheckDN.script.done'">
-    	<param name="resolveid" expr="_my_prefix"/>
-    	</send>
-			</onentry>				
-			<transition event="CheckDN.script.done" cond="system.ThisDN === '9000'" target="$$_MY_PREFIX_$$.emsSetMainParam">
-			</transition>				
-			<transition event="CheckDN.script.done" cond="system.ThisDN === '9100'" target="$$_MY_PREFIX_$$.emsSetSurveyParam">
-			</transition>
-			<transition event="CheckDN.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.SetPSAP1Skill">
 			</transition>
 		</state>
 
@@ -1172,22 +364,28 @@
 						gvp_opm_main = getJSONContent(opmobj, '_json');	
 						
 						//Initialize Userdata
-						var v_kvlist = new Object();
+						__Log('###### Initialize ######');
+					//	var v_kvlist = new Object();
 					
-						v_kvlist['PhoneNo'] = system.ANI;
-						v_kvlist['gvp_opm'] = gvp_opm_main;
-						_genesys.ixn.setuData(v_kvlist, system.InteractionID);	 
+					//	v_kvlist['PhoneNo'] = system.ANI;
+					//	v_kvlist['gvp_opm'] = gvp_opm_main;
+					//	_genesys.ixn.setuData(v_kvlist, system.InteractionID);	 
+					//	__Log('###### Set UserData Step1 ######');
 						
-						var input = new Object();
 						
-						input.gvp_opm = gvp_opm_main;	
-						_genesys.ixn.setuData(input, system.InteractionID);
+					//	var input = new Object();	
+					//	input.gvp_opm = gvp_opm_main;	
+					//	_genesys.ixn.setuData(input, system.InteractionID);
+					//	__Log('###### Set UserData Step2 (Input) ######');
 						
-						varPlayAppResource  = &quot;http:\/\/192.168.2.161:9001\/GHB_GVP_Callflow-20240222174004.804\/src-gen\/Main.vxml&quot;;
-						__Log('### IVR Parameters for - ' +  _data.moduleName);
+						
+						__Log('###### Set Play IVR Profile ######');
+						varPlayAppResource = &quot;http:\/\/192.168.2.161:9001\/GHB_GVP_Callflow-20240222174004.804\/src-gen\/Main.vxml&quot;;
+						__Log('### varPlayAppResource - ' + varPlayAppResource);
 						
 					} catch (err) {
 						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + ' @@@@@@');
 					}
 					
 					})();
@@ -1296,8 +494,8 @@
 				<script>App_restSaveSurveyScore['data'] = eval('(' + _event.data.content + ')');</script>
 				<assign location="varHttpResp" expr="App_restSaveSurveyScore['data']" />
 				<log expr="'Data Assigned: ' + varHttpResp.toSource()"/>
-				<assign location="varHttpStatus" expr="true"/>
-				<assign location="varMPAReturn" expr="200"/>				
+				<assign location="restRespStatus" expr="true"/>
+				<assign location="restStatusCode" expr="200"/>				
 	    	</transition>
 		</state>
 
@@ -1389,8 +587,8 @@
 							data['Incoming_DNIS'] = system.DNIS;
 							App_UserData1['setudata'] = true;
 						}
-						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1708687232) {
-							data['Composer_internal_key'] = 1708687232;
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1709455327) {
+							data['Composer_internal_key'] = 1709455327;
 							App_UserData1['setudata'] = true;
 						}
 						if (App_UserData1['setudata']) {
@@ -1404,7 +602,7 @@
 				<script>storeEvent("UserData1", _event);</script>
 			</transition>
 			<transition event="interaction.udata.changed" target="$$_MY_PREFIX_$$._reserved_UserData1_outputTransition" cond="(typeof App_UserData1['setudata'] != 'undefined')
-																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1708687232)">
+																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1709455327)">
 					<cancel sendid="App_UserData1['requestid']"/>
 					<script>storeEvent("UserData1", _event);</script>
 			</transition>
@@ -1421,38 +619,849 @@
 					<log expr="'Received error.notallowed event in the block : UserData1, Ignoring this event'" />
 				</transition>		
 			</state>
-		</state>			
-		<!-- This is the udataSetCallInfo State in Disabled mode -->
-		<state id="udataSetCallInfo">
+		</state>
+		<!-- This is the emsCheckBlacklist State -->
+		<state id="emsCheckBlacklist">
 			<onentry>
-				<log expr="_sessionid + ': udataSetCallInfo block is currently disabled'" />
+				<log expr="_sessionid + ': Inside Script Block: emsCheckBlacklist'"/>
+				<script>
+					(function(){
+					try {
+						// your code
+						__Log('### system.DNIS ='+system.DNIS);
+						__Log('### system.ANI ='+system.ANI);
+						__Log('### blacklistOpmName ='+blacklistOpmName);
+						
+						var listobj = _genesys.session.getListItemValue(blacklistOpmName,'BLACKLIST');
+						__Log('### Blacklist =' + JSON.stringify(listobj));
+						
+						var retobj = getJSONContent(listobj, system.ANI);	
+						var reccnt = getJSONObjectCount(retobj);
+						
+						if (reccnt &gt; 0){
+							__Log('###### Customer is in blacklist ######');
+							throw new Error('Phone is blacklist'); 
+						}
+						
+					} catch (err) {
+						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + '@@@@@@');
+						throw new Error('Exception Found'); 
+					}
+					
+					})();
+				</script>
+				<send event="'emsCheckBlacklist.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
 			</onentry>
-			<transition target="$$_MY_PREFIX_$$.TargetBySkill1">
+			<transition event="emsCheckBlacklist.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.emsCheckWhitelist">
+				<script>storeEvent("emsCheckBlacklist", _event);</script>
+			</transition>
+			<transition event="error" target="$$_MY_PREFIX_$$.Disconnect2">
+				<log expr="'Composer Application: Main Block: emsCheckBlacklist'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("emsCheckBlacklist", _event);
+				]]>
+				</script>
 			</transition>
 		</state>
 
-		<!-- This is the OPM1 State in Disabled mode -->
-		<state id="OPM1">
+		<!-- This is the Disconnect2 State -->
+		<final id="Disconnect2">
 			<onentry>
-				<log expr="_sessionid + ': OPM1 block is currently disabled'" />
+				<log expr="_sessionid + ': Inside Disconnect Block: Disconnect2'" />
+				<ixn:terminate requestid="App_Disconnect2['requestid']" interactionid="system.InteractionID" reason="'Disconnect interaction'"/>
 			</onentry>
-		</state>
+		</final>
 
-		<!-- This is the playGreeting State in Disabled mode -->
-		<state id="playGreeting">
+		<!-- This is the emsCheckWhitelist State -->
+		<state id="emsCheckWhitelist">
 			<onentry>
-				<log expr="_sessionid + ': playGreeting block is currently disabled'" />
+				<log expr="_sessionid + ': Inside Script Block: emsCheckWhitelist'"/>
+				<script>
+					(function(){
+					try {
+						// your code
+						__Log('### system.DNIS ='+system.DNIS);
+						__Log('### system.ANI ='+system.ANI);
+						__Log('### whitelistOpmName ='+whitelistOpmName);
+						
+						var listobj = _genesys.session.getListItemValue(whitelistOpmName,'whitelist');
+						__Log('### whitelist =' + JSON.stringify(listobj));
+						
+						var retobj = getJSONContent(listobj, system.ANI);	
+						var reccnt = getJSONObjectCount(retobj);
+						
+						if (reccnt &gt; 0){
+							varCustLevel = retobj;
+							__Log('###### Customer Level = ' + varCustLevel + ' ######');
+							__Log('###### Customer is in vip or vvip list ######');
+						} else {
+							varCustLevel = 'general';
+						}
+					} catch (err) {
+						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + '@@@@@@');
+						varCustLevel = 'general';
+					}
+					
+					})();
+				</script>
+				<send event="'emsCheckWhitelist.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
 			</onentry>
-			<transition target="$$_MY_PREFIX_$$.SetPSAP1Skill">
+			<transition event="emsCheckWhitelist.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.bchIsVIP">
+				<script>storeEvent("emsCheckWhitelist", _event);</script>
 			</transition>
 		</state>
 
-		<!-- This is the WebRequest1 State in Disabled mode -->
-		<state id="WebRequest1">
+		<!-- This is the bchIsVIP State -->
+		<state id="bchIsVIP">
 			<onentry>
-				<log expr="_sessionid + ': WebRequest1 block is currently disabled'" />
+				<log expr="_sessionid + ': Inside Branching Block: bchIsVIP'" />
+				<send event="'bchIsVIP.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>				
+			<transition event="bchIsVIP.script.done" cond="varCustLevel.toLowerCase() == 'vip'" target="$$_MY_PREFIX_$$.emsSetVipParam">
+			</transition>				
+			<transition event="bchIsVIP.script.done" cond="varCustLevel.toLowerCase() == 'vvip'" target="$$_MY_PREFIX_$$.emsSetVVipParam">
+			</transition>
+			<transition event="bchIsVIP.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.emsSetMainParam">
+			</transition>
+		</state>
+
+		<!-- This is the TargetBySkill1 State -->
+		<state id="TargetBySkill1">
+						
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_submit">
+					<log expr="_sessionid + ': Inside Target Block: TargetBySkill1 '"/>
+				<log expr="'varSkillExpr - ' + varSkillExpr" level="2" />
+				</transition>
+			</initial>
+			
+			<state id="_reserved_TargetBySkill1_submit">
+				<onentry>
+					<queue:submit route="true" requestid="App_TargetBySkill1['requestid']" interactionid="system.InteractionID" timeout="10" clearontimeout="true" ordertype="'max'" orderstat="'StatAgentLoading'">
+						<queue:targets>
+							<queue:target skillexpr="'Loan &gt; 1'" statserver="'Stat_Server_DC1'"/>						
+						</queue:targets>
+					</queue:submit>
+				</onentry>
+				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetBySkill1['requestid']">
+					<script>storeEvent("TargetBySkill1", _event);</script>
+					<assign location="App_TargetBySkill1['queue.submit.requestid']" expr="_event.data.requestid"/>
+					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
+				</transition>
+				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetBySkill1_fetch_deviation">
+					<log expr="'Target Selection DONE'" />
+					<log expr="'Composer Application:Main Block: TargetBySkill1'" />
+					<log expr="'Target selected:' + _event.data.targetselected" />
+					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
+						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
+						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
+					<else/>
+						<log expr="'Interaction is null'" />
+					</if>
+					<script>storeEvent("TargetBySkill1", _event);</script>
+					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
+					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
+					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
+					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
+					<assign location="App_TargetBySkill1['targetResource']" expr="_event.data.resource"/>
+					</transition>
+			</state>
+			<state id="_reserved_TargetBySkill1_fetch_deviation">
+				<transition target="$$_MY_PREFIX_$$.Exit1">
+					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
+				</transition>
+			</state>
+			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetBySkill1['requestid']" target="$$_MY_PREFIX_$$.TargetByAG">
+				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetBySkill1", _event);
+				]]>
+				</script>
+				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
+			</transition>
+			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetBySkill1['queue.submit.requestid']" target="$$_MY_PREFIX_$$.TargetByAG">
+				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetBySkill1", _event);
+				]]>
+				</script>
+			</transition>
+			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
+				<log expr="'Composer Application: Main Block: TargetBySkill1'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetBySkill1", _event);
+				]]>
+				</script>
+			</transition>
+		</state>
+
+		<!-- This is the TargetByAG State -->
+		<state id="TargetByAG">
+						
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_TargetByAG_submit">
+					<log expr="_sessionid + ': Inside Target Block: TargetByAG '"/>
+				<log expr="'varSkillExpr - ' + varSkillExpr" level="2" />
+				</transition>
+			</initial>
+			
+			<state id="_reserved_TargetByAG_submit">
+				<onentry>
+					<queue:submit route="false" requestid="App_TargetByAG['requestid']" interactionid="system.InteractionID" timeout="60" clearontimeout="true" ordertype="'max'" orderstat="'StatAgentLoading'">
+						<queue:targets>
+							<queue:target name="'GHB'" type="agentgroup" statserver="'Stat_Server_DC1'"/>						
+						</queue:targets>
+					</queue:submit>
+				</onentry>
+				<transition event="queue.submit.requestid" cond="_event.data.requestid==App_TargetByAG['requestid']">
+					<script>storeEvent("TargetByAG", _event);</script>
+					<assign location="App_TargetByAG['queue.submit.requestid']" expr="_event.data.requestid"/>
+					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
+				</transition>
+				<transition event="queue.submit.done" cond="_event.data.requestid==App_TargetByAG['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetByAG_fetch_deviation">
+					<log expr="'Target Selection DONE'" />
+					<log expr="'Composer Application:Main Block: TargetByAG'" />
+					<log expr="'Target selected:' + _event.data.targetselected" />
+					<if cond="typeof system.InteractionID != 'undefined' &amp;&amp; system.InteractionID != null &amp;&amp; _genesys.ixn.interactions[system.InteractionID] != null &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID] != 'undefined' &amp;&amp; typeof _genesys.ixn.interactions[system.InteractionID].voice != 'undefined'">
+						<log expr="'_genesys.ixn.interactions[system.InteractionID].voice.ani: ' + _genesys.ixn.interactions[system.InteractionID].voice.ani" />
+						<log expr="'_genesys.ixn.interactions[system.InteractionID].ani: ' + _genesys.ixn.interactions[system.InteractionID].ani" />
+					<else/>
+						<log expr="'Interaction is null'" />
+					</if>
+					<script>storeEvent("TargetByAG", _event);</script>
+					<assign location="system.LastTargetComponentSelected" expr="_event.data.targetcomponentselected"/>
+					<assign location="system.LastTargetObjectSelected" expr="_event.data.targetobjectselected"/>
+					<assign location="system.LastTargetSelected" expr="_event.data.targetselected"/>
+					<assign location="system.LastVirtualQueueSelected" expr="_event.data.vqselected"/>
+					<assign location="App_TargetByAG['targetResource']" expr="_event.data.resource"/>
+					</transition>
+			</state>
+			<state id="_reserved_TargetByAG_submit_delay">
+				<onentry>
+					<send event="'TargetByAG.aftersubmit.timeout.elapsed'" delay="'200ms'">
+					<param name="resolveid" expr="_my_prefix"/>
+					</send>
+				</onentry>
+				<transition event="TargetByAG.aftersubmit.timeout.elapsed" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$._reserved_TargetByAG_detach"/>
+			</state>
+			<state id="_reserved_TargetByAG_detach" initial="$$_MY_PREFIX_$$._reserved_TargetByAG_detach_run">
+				<onentry>
+					<log expr="'Detach the interaction ' + system.InteractionID"/>
+					<script>var App_TargetByAG_Detach_Timeout = new Date().getTime() + 300;</script>
+				</onentry>
+				<state id="_reserved_TargetByAG_detach_run">
+					<onentry>
+						<log expr="'Detach attempt for interaction ' + system.InteractionID"/>
+						<ixn:detach interactionid="system.InteractionID" requestid="App_TargetByAG['requestid']"/>
+					</onentry>
+					<transition event="interaction.detach.done" cond="_event.data.requestid==App_TargetByAG['requestid']" target="$$_MY_PREFIX_$$._reserved_TargetByAG_redirect">
+						<script>storeEvent("TargetByAG", _event);</script>
+				<assign location="App_TargetByAG['interaction.detach.requestid']" expr="_event.data.requestid"/>
+					</transition>
+					<transition event="error.interaction.detach" cond="(_event.data.requestid==App_TargetByAG['requestid']) &amp;&amp; (_event.data.error=='invalidstate') &amp;&amp; ((new Date().getTime() + 200) &lt; App_TargetByAG_Detach_Timeout)" target="$$_MY_PREFIX_$$._reserved_TargetByAG_detach_delay"/>
+				</state>
+				<state id="_reserved_TargetByAG_detach_delay">
+					<onentry>
+						<send event="'TargetByAG.afterdetach.timeout.elapsed'" delay="'200ms'"/>
+					</onentry>
+					<transition event="TargetByAG.afterdetach.timeout.elapsed" target="$$_MY_PREFIX_$$._reserved_TargetByAG_detach_run"/>
+				</state>
+			</state>
+			<state id="_reserved_TargetByAG_attach">
+				<onentry>
+					<log expr="'Attach the interaction back'" />
+					<ixn:attach interactionid="system.InteractionID" requestid="App_TargetByAG['requestid']"/>
+				</onentry>
+				<transition event="interaction.attach.done" cond="_event.data.requestid==App_TargetByAG['requestid']">
+					<script>storeEvent("TargetByAG", _event);</script>
+				<assign location="App_TargetByAG['interaction.attach.requestid']" expr="_event.data.requestid"/>
+					<script>
+						App_TargetByAG['requestid'] = App_TargetByAG['error.rethrow'].params.requestid;
+						__Raise(App_TargetByAG['error.rethrow'].name, App_TargetByAG['error.rethrow'].params);
+					</script>
+				</transition>
+			</state>
+			<state id="_reserved_TargetByAG_fetch_deviation">
+				<transition target="$$_MY_PREFIX_$$._reserved_TargetByAG_redirect">
+					<log expr="_sessionid + ': Target Deviation from Ideal Agent'" />
+				</transition>
+			</state>
+			<state id="_reserved_TargetByAG_redirect">
+				<onentry>
+					<log expr="_sessionid + ': Inside Target Redirect: TargetByAG '" />
+					<ixn:redirect detach="true" requestid="App_TargetByAG['requestid']" interactionid="system.InteractionID" from="system.ThisDN" to="App_TargetByAG['targetResource']" type="_genesys.queue.rType.RouteTypeDefault"/>
+				</onentry>
+			<transition event="interaction.redirect.done" cond="_event.data.requestid==App_TargetByAG['requestid']" target="$$_MY_PREFIX_$$.Exit1">
+				<script>storeEvent("TargetByAG", _event);</script>
+				<assign location="App_TargetByAG['interaction.redirect.requestid']" expr="_event.data.requestid"/>
+			</transition>
+				
+			</state>
+			<transition event="error.queue.submit" cond="_event.data.requestid==App_TargetByAG['requestid']" target="$$_MY_PREFIX_$$.Exit1">
+				<log expr="'Composer Application: Main Block: TargetByAG'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetByAG", _event);
+				]]>
+				</script>
+				<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
+			</transition>
+			<transition event="queue.cancel.done" cond="_event.data.requestid==App_TargetByAG['queue.submit.requestid']" target="$$_MY_PREFIX_$$.Exit1">
+				<log expr="'Composer Application: Main Block: TargetByAG'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetByAG", _event);
+				]]>
+				</script>
+			</transition>
+			<transition event="interaction.deleted" cond="_event.data.interactionid==system.InteractionID" target="$$_MY_PREFIX_$$.Exit1">
+				<log expr="'Composer Application: Main Block: TargetByAG'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("TargetByAG", _event);
+				]]>
+				</script>
+			</transition>
+		</state>
+
+
+	
+		<!-- This is the playVip State -->
+		<state id="playVip">
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_playVip_play">
+					<log expr="_sessionid + ': Inside PlayApplication Block: playVip '"/>
+				</transition>
+			</initial>
+			<state id="_reserved_playVip_play">
+				<onentry>
+				<dialog:start type="'applid'" interactionid="system.InteractionID" requestid="App_playVip['requestid']">
+    				<param name="APP_URI"  expr="varPlayAppResource" />
+    				<param name="LANGUAGE" expr="'English (US)'" />
+				</dialog:start>
+				</onentry>
+				<transition event="dialog.start.done" cond="_event.data.requestid==App_playVip['requestid']" target="$$_MY_PREFIX_$$.emsExitVip">
+					<script>storeEvent("playVip", _event);</script>
+				<assign location="gvp_extension" expr="_event.data.extensions"/>
+				</transition>
+			<transition event="error.dialog.start" cond="_event.data.requestid==App_playVip['requestid']" target="$$_MY_PREFIX_$$.emsSetMainParam">
+				<log expr="'Composer Application: Main Block: playVip'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("playVip", _event);
+				]]>
+				</script>
+				<assign location="gvp_extension" expr="_event.data.extensions"/>
+			</transition>
+			</state>
+		</state>
+	
+	
+	
+
+		<!-- This is the emsSetVipParam State -->
+		<state id="emsSetVipParam">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: emsSetVipParam'"/>
+				<script>
+					(function(){
+					try {
+						// your code
+						var opmobj = _genesys.session.getListItemValue(playMainOpmName,'OPM');
+						gvp_opm_main = getJSONContent(opmobj, '_json');	
+						
+						//Initialize Userdata
+						__Log('###### Initialize ######');
+					//	var v_kvlist = new Object();
+					
+					//	v_kvlist['PhoneNo'] = system.ANI;
+					//	v_kvlist['gvp_opm'] = gvp_opm_main;
+					//	_genesys.ixn.setuData(v_kvlist, system.InteractionID);	 
+					//	__Log('###### Set UserData Step1 ######');
+						
+						
+					//	var input = new Object();	
+					//	input.gvp_opm = gvp_opm_main;	
+					//	_genesys.ixn.setuData(input, system.InteractionID);
+					//	__Log('###### Set UserData Step2 (Input) ######');
+						
+						
+						__Log('###### Set Play IVR Profile ######');
+						varPlayAppResource = &quot;http:\/\/192.168.2.161:9001\/GHB_GVP_Callflow-20240228021330.180\/src-gen\/VIP.vxml&quot;;
+						__Log('### varPlayAppResource - ' + varPlayAppResource);
+						
+					} catch (err) {
+						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + ' @@@@@@');
+					}
+					
+					})();
+				</script>
+				<send event="'emsSetVipParam.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
 			</onentry>
-			<transition target="$$_MY_PREFIX_$$.playThanks">
+			<transition event="emsSetVipParam.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.UserDataVip">
+				<script>storeEvent("emsSetVipParam", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the UserDataVip State -->
+		<state id="UserDataVip">
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_UserDataVip_start">
+					<log expr="_sessionid + ': Inside UserData Block: UserDataVip'" />
+				</transition>
+			</initial>
+			<state id="_reserved_UserDataVip_start">
+			<onentry>			    
+				<if cond="typeof system.InteractionID == 'undefined'">
+					<raise event="error.com.genesyslab.composer.noudata">
+						<param name="description" expr="'system.InteractionID variable is not defined'"/>
+					</raise>
+				<elseif cond="(typeof _genesys.ixn.interactions == 'undefined')
+							|| (_genesys.ixn.interactions[system.InteractionID] == null)
+							|| (typeof _genesys.ixn.interactions[system.InteractionID] == 'undefined')
+							|| (typeof _genesys.ixn.interactions[system.InteractionID].udata == 'undefined')"/>
+					<raise event="error.com.genesyslab.composer.noudata">
+						<param name="description" expr="'No User data is associated with interaction ' + system.InteractionID"/>
+					</raise>
+				<else/>
+					<send event="'UserDataVip.wait.timeout'" idlocation="App_UserDataVip['requestid']" delay="'10s'">
+					<param name="resolveid" expr="_my_prefix"/>
+					</send>
+					<script><![CDATA[
+						App_UserDataVip['setudata'] = false;
+						var data = new Object();
+						if (_genesys.ixn.interactions[system.InteractionID].udata['gsw-ivr-profile-name'] != varVipIVRProfile && typeof varVipIVRProfile != 'undefined') {
+							data['gsw-ivr-profile-name'] = varVipIVRProfile;
+							App_UserDataVip['setudata'] = true;
+						}
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Incoming_DNIS'] != system.DNIS && typeof system.DNIS != 'undefined') {
+							data['Incoming_DNIS'] = system.DNIS;
+							App_UserDataVip['setudata'] = true;
+						}
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1709455330) {
+							data['Composer_internal_key'] = 1709455330;
+							App_UserDataVip['setudata'] = true;
+						}
+						if (App_UserDataVip['setudata']) {
+							__Log('setting udata:' + JSON.stringify(data));
+							_genesys.ixn.setuData(data, system.InteractionID);
+						}
+			    	]]></script>
+				</if>
+			</onentry>
+			<transition event="UserDataVip.wait.timeout" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$.playVip">
+				<script>storeEvent("UserDataVip", _event);</script>
+			</transition>
+			<transition event="interaction.udata.changed" target="$$_MY_PREFIX_$$._reserved_UserDataVip_outputTransition" cond="(typeof App_UserDataVip['setudata'] != 'undefined')
+																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1709455330)">
+					<cancel sendid="App_UserDataVip['requestid']"/>
+					<script>storeEvent("UserDataVip", _event);</script>
+			</transition>
+			
+			<transition target="$$_MY_PREFIX_$$.playVip" cond="(typeof App_UserDataVip['setudata'] != 'undefined') &amp;&amp; !App_UserDataVip['setudata']">
+				<log expr="'udata is up to date. Transitioning out.'" />
+			</transition>
+			</state>
+			<state id="_reserved_UserDataVip_outputTransition">
+				<transition event="cancel.successful" target="$$_MY_PREFIX_$$.playVip">
+            	</transition>
+			
+				<transition event="error.notallowed" target="$$_MY_PREFIX_$$.playVip">
+					<log expr="'Received error.notallowed event in the block : UserDataVip, Ignoring this event'" />
+				</transition>		
+			</state>
+		</state>
+		<!-- This is the bchExitVip State -->
+		<state id="bchExitVip">
+			<onentry>
+				<log expr="_sessionid + ': Inside Branching Block: bchExitVip'" />
+				<log expr="'gvp_exitmenu : ' + JSON.stringify(gvp_exitmenu)" level="2" />
+				<log expr="'gvp_exitmenu_vip : ' + JSON.stringify(gvp_exitmenu_vip)" level="2" />
+				<send event="'bchExitVip.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>				
+			<transition event="bchExitVip.script.done" cond="gvp_exitmenu_vip === 'xfer'" target="$$_MY_PREFIX_$$.SetPSAP1Skill">
+			</transition>
+			<transition event="bchExitVip.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.emsSetMainParam">
+			</transition>
+		</state>
+
+
+	
+		<!-- This is the playVVip State -->
+		<state id="playVVip">
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_playVVip_play">
+					<log expr="_sessionid + ': Inside PlayApplication Block: playVVip '"/>
+				</transition>
+			</initial>
+			<state id="_reserved_playVVip_play">
+				<onentry>
+				<dialog:start type="'applid'" interactionid="system.InteractionID" requestid="App_playVVip['requestid']">
+    				<param name="APP_URI"  expr="varPlayAppResource" />
+    				<param name="LANGUAGE" expr="'English (US)'" />
+				</dialog:start>
+				</onentry>
+				<transition event="dialog.start.done" cond="_event.data.requestid==App_playVVip['requestid']" target="$$_MY_PREFIX_$$.emsExitVVip">
+					<script>storeEvent("playVVip", _event);</script>
+				<assign location="gvp_extension" expr="_event.data.extensions"/>
+				</transition>
+			<transition event="error.dialog.start" cond="_event.data.requestid==App_playVVip['requestid']" target="$$_MY_PREFIX_$$.emsSetMainParam">
+				<log expr="'Composer Application: Main Block: playVVip'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("playVVip", _event);
+				]]>
+				</script>
+				<assign location="gvp_extension" expr="_event.data.extensions"/>
+			</transition>
+			</state>
+		</state>
+	
+	
+	
+
+		<!-- This is the emsSetVVipParam State -->
+		<state id="emsSetVVipParam">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: emsSetVVipParam'"/>
+				<script>
+					(function(){
+					try {
+						// your code
+						var opmobj = _genesys.session.getListItemValue(playMainOpmName,'OPM');
+						gvp_opm_main = getJSONContent(opmobj, '_json');	
+						
+						//Initialize Userdata
+						__Log('###### Initialize ######');
+					//	var v_kvlist = new Object();
+					
+					//	v_kvlist['PhoneNo'] = system.ANI;
+					//	v_kvlist['gvp_opm'] = gvp_opm_main;
+					//	_genesys.ixn.setuData(v_kvlist, system.InteractionID);	 
+					//	__Log('###### Set UserData Step1 ######');
+						
+						
+					//	var input = new Object();	
+					//	input.gvp_opm = gvp_opm_main;	
+					//	_genesys.ixn.setuData(input, system.InteractionID);
+					//	__Log('###### Set UserData Step2 (Input) ######');
+						
+						
+						__Log('###### Set Play IVR Profile ######');
+						varPlayAppResource = &quot;http:\/\/192.168.2.161:9001\/GHB_GVP_Callflow-20240228021330.180\/src-gen\/VVIP.vxml&quot;;
+						__Log('### varPlayAppResource - ' + varPlayAppResource);
+						
+					} catch (err) {
+						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + ' @@@@@@');
+					}
+					
+					})();
+				</script>
+				<send event="'emsSetVVipParam.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="emsSetVVipParam.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.UserDataVVip">
+				<script>storeEvent("emsSetVVipParam", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the UserDataVVip State -->
+		<state id="UserDataVVip">
+			<initial>
+				<transition target="$$_MY_PREFIX_$$._reserved_UserDataVVip_start">
+					<log expr="_sessionid + ': Inside UserData Block: UserDataVVip'" />
+				</transition>
+			</initial>
+			<state id="_reserved_UserDataVVip_start">
+			<onentry>			    
+				<if cond="typeof system.InteractionID == 'undefined'">
+					<raise event="error.com.genesyslab.composer.noudata">
+						<param name="description" expr="'system.InteractionID variable is not defined'"/>
+					</raise>
+				<elseif cond="(typeof _genesys.ixn.interactions == 'undefined')
+							|| (_genesys.ixn.interactions[system.InteractionID] == null)
+							|| (typeof _genesys.ixn.interactions[system.InteractionID] == 'undefined')
+							|| (typeof _genesys.ixn.interactions[system.InteractionID].udata == 'undefined')"/>
+					<raise event="error.com.genesyslab.composer.noudata">
+						<param name="description" expr="'No User data is associated with interaction ' + system.InteractionID"/>
+					</raise>
+				<else/>
+					<send event="'UserDataVVip.wait.timeout'" idlocation="App_UserDataVVip['requestid']" delay="'10s'">
+					<param name="resolveid" expr="_my_prefix"/>
+					</send>
+					<script><![CDATA[
+						App_UserDataVVip['setudata'] = false;
+						var data = new Object();
+						if (_genesys.ixn.interactions[system.InteractionID].udata['gsw-ivr-profile-name'] != varVVipIVRProfile && typeof varVVipIVRProfile != 'undefined') {
+							data['gsw-ivr-profile-name'] = varVVipIVRProfile;
+							App_UserDataVVip['setudata'] = true;
+						}
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Incoming_DNIS'] != system.DNIS && typeof system.DNIS != 'undefined') {
+							data['Incoming_DNIS'] = system.DNIS;
+							App_UserDataVVip['setudata'] = true;
+						}
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1709455332) {
+							data['Composer_internal_key'] = 1709455332;
+							App_UserDataVVip['setudata'] = true;
+						}
+						if (App_UserDataVVip['setudata']) {
+							__Log('setting udata:' + JSON.stringify(data));
+							_genesys.ixn.setuData(data, system.InteractionID);
+						}
+			    	]]></script>
+				</if>
+			</onentry>
+			<transition event="UserDataVVip.wait.timeout" cond="_event.data.resolveid == _my_prefix" target="$$_MY_PREFIX_$$.playVVip">
+				<script>storeEvent("UserDataVVip", _event);</script>
+			</transition>
+			<transition event="interaction.udata.changed" target="$$_MY_PREFIX_$$._reserved_UserDataVVip_outputTransition" cond="(typeof App_UserDataVVip['setudata'] != 'undefined')
+																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1709455332)">
+					<cancel sendid="App_UserDataVVip['requestid']"/>
+					<script>storeEvent("UserDataVVip", _event);</script>
+			</transition>
+			
+			<transition target="$$_MY_PREFIX_$$.playVVip" cond="(typeof App_UserDataVVip['setudata'] != 'undefined') &amp;&amp; !App_UserDataVVip['setudata']">
+				<log expr="'udata is up to date. Transitioning out.'" />
+			</transition>
+			</state>
+			<state id="_reserved_UserDataVVip_outputTransition">
+				<transition event="cancel.successful" target="$$_MY_PREFIX_$$.playVVip">
+            	</transition>
+			
+				<transition event="error.notallowed" target="$$_MY_PREFIX_$$.playVVip">
+					<log expr="'Received error.notallowed event in the block : UserDataVVip, Ignoring this event'" />
+				</transition>		
+			</state>
+		</state>
+		<!-- This is the bchExitVVip State -->
+		<state id="bchExitVVip">
+			<onentry>
+				<log expr="_sessionid + ': Inside Branching Block: bchExitVVip'" />
+				<log expr="'gvp_exitmenu : ' + gvp_exitmenu" level="2" />
+				<log expr="'gvp_exitmenu_vvip : ' + gvp_exitmenu_vvip" level="2" />
+				<send event="'bchExitVVip.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>				
+			<transition event="bchExitVVip.script.done" cond="gvp_exitmenu_vvip === 'xfer'" target="$$_MY_PREFIX_$$.SetPSAP1Skill">
+			</transition>
+			<transition event="bchExitVVip.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.emsSetMainParam">
+			</transition>
+		</state>
+
+		<!-- This is the emsParseApiResult State -->
+		<state id="emsParseApiResult">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: emsParseApiResult'"/>
+				<log expr="'httpResult - ' +JSON.stringify(httpResult)" level="2" />
+				<script>
+					(function(){
+					try {
+						// your code
+						__Log('### Http Response = ' + JSON.stringify(httpResult));
+						
+						
+						apiFirstName = getJSONContent(httpResult, 'contact.firstname');
+						apiLastName = getJSONContent(httpResult, 'contact.lastname');	
+						apiCompany = getJSONContent(httpResult, 'contact.company');
+						apiBlacklist = getJSONContent(httpResult, 'contact.blacklist_type');
+						varCustLevel = getJSONContent(httpResult, 'contact.member_type');
+							
+						__Log('### apiFirstName ='+apiFirstName);
+						__Log('### apiLastName ='+apiLastName);
+						__Log('### apiCompany ='+apiCompany);
+						__Log('### apiGrading = ' + varCustLevel);	
+						__Log('### apiBlacklist = ' + apiBlacklist);
+						
+						if (apiBlacklist.toLowerCase() === 'blacklist') {
+							__Log('###### Customer is in blacklist ######');
+							throw new Error('Phone is blacklist'); 
+						}	
+					//		var listobj = _genesys.session.getListItemValue(blacklistOpmName,'BLACKLIST');
+					//		__Log('### Blacklist =' + JSON.stringify(listobj));
+					//		
+					//		var retobj = getJSONContent(listobj, system.ANI);	
+					//		var reccnt = getJSONObjectCount(retobj);
+					//		
+					//		if (reccnt &gt; 0){
+					//			__Log('###### Customer is in blacklist ######');
+					//			throw new Error('Phone is blacklist'); 
+					//		}
+					//		
+					
+					} catch (err) {
+						// error handling code
+						__Log('@@@@@@ Exception Found - ' + err + '@@@@@@');
+						throw new Error('Exception Found'); 
+					}
+					
+					})();
+				</script>
+				<send event="'emsParseApiResult.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="emsParseApiResult.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.bchIsVIP">
+				<script>storeEvent("emsParseApiResult", _event);</script>
+			</transition>
+			<transition event="error" target="$$_MY_PREFIX_$$.Disconnect2">
+				<log expr="'Composer Application: Main Block: emsParseApiResult'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("emsParseApiResult", _event);
+				]]>
+				</script>
+			</transition>
+		</state>
+
+		<!-- This is the restGetProfile State -->
+		<state id="restGetProfile">
+			<onentry>
+			    <log expr="_sessionid + ': Inside HTTPRest Block: restGetProfile'" />
+
+				<script>
+				 var customHeaders = new Object();
+				 customHeaders["api_key"] = '608608ed442341e78183358ace86971d';
+    			</script>
+				<session:fetch requestid="App_restGetProfile['requestid']"
+					       srcexpr="wreqUrl" method="'get'" enctype="'application/x-www-form-urlencoded'" maxage="0"
+					       maxstale="0" type="'application/json'" gdelivery="false" 
+					       gd_retries="1" gd_retry_interval="0" timeout="10" headers="customHeaders">
+				   
+					<param name="number" expr="system.ANI"/> 
+					<param name="ivr_menu" expr="''"/>
+				</session:fetch>
+	  		</onentry>
+			<transition event="session.fetch.done" cond="_event.data.requestid==App_restGetProfile['requestid']" target="$$_MY_PREFIX_$$.emsParseApiResult">
+				<log expr="'Session FETCH  DONE'" />
+				<log expr="'Composer Application:Main Block: restGetProfile'" />
+				<log expr="'Data Fetched:' + _event.data.content" />
+				<script>storeEvent("restGetProfile", _event);</script>
+				<script>App_restGetProfile['data'] = eval('(' + _event.data.content + ')');</script>
+				<assign location="httpResult" expr="App_restGetProfile['data']" />
+				<log expr="'Data Assigned: ' + httpResult.toSource()"/>
+				<assign location="httpResponseStatus" expr="true"/>
+				<assign location="httpStatusCode" expr="200"/>				
+	    	</transition>
+			<transition event="error" target="$$_MY_PREFIX_$$.emsCheckBlacklist">
+				<log expr="'Composer Application: Main Block: restGetProfile'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("restGetProfile", _event);
+				]]>
+				</script>
+				<assign location="httpStatusCode" expr="_event.data.error == 0 ? undefined : _event.data.error"/>
+				<assign location="httpResponseStatus" expr="false"/>
+			</transition>
+		</state>
+
+		<!-- This is the emsExitVip State -->
+		<state id="emsExitVip">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: emsExitVip'"/>
+				<script>
+					try {
+						// your code
+						//	var input = new Object();	
+					//	input.gvp_opm = gvp_opm_main;	
+					//	_genesys.ixn.setuData(input, system.InteractionID);
+					//	__Log('###### Set UserData Step2 (Input) ######');
+						gvp_exitmenu = _genesys.ixn.interactions[system.InteractionID].udata.gvp_exitmenu;
+						gvp_exitmenu_vip = _genesys.ixn.interactions[system.InteractionID].udata.gvp_exitmenu_vip;
+					
+					} catch (error) {
+						// error handling code
+					}
+				</script>
+				<send event="'emsExitVip.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="emsExitVip.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.bchExitVip">
+				<script>storeEvent("emsExitVip", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the emsExitVVip State -->
+		<state id="emsExitVVip">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: emsExitVVip'"/>
+				<script>
+					try {
+						// your code
+						//	var input = new Object();	
+					//	input.gvp_opm = gvp_opm_main;	
+					//	_genesys.ixn.setuData(input, system.InteractionID);
+					//	__Log('###### Set UserData Step2 (Input) ######');
+						gvp_exitmenu = _genesys.ixn.interactions[system.InteractionID].udata.gvp_exitmenu;
+						gvp_exitmenu_vvip = _genesys.ixn.interactions[system.InteractionID].udata.gvp_exitmenu_vvip;
+					
+					} catch (error) {
+						// error handling code
+					}
+				</script>
+				<send event="'emsExitVVip.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="emsExitVVip.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.bchExitVVip">
+				<script>storeEvent("emsExitVVip", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the OriginateDN State -->
+		<state id="OriginateDN">
+			<onentry>
+				<log expr="_sessionid + ': Inside Branching Block: OriginateDN'" />
+				<log expr="'###### varCustLevel - ' + varCustLevel + ' ######'" level="2" />
+				<send event="'OriginateDN.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>				
+			<transition event="OriginateDN.script.done" cond="system.ThisDN === '9000'" target="$$_MY_PREFIX_$$.restGetProfile">
+			</transition>				
+			<transition event="OriginateDN.script.done" cond="system.ThisDN === '9100'" target="$$_MY_PREFIX_$$.emsSetSurveyParam">
+			</transition>
+			<transition event="OriginateDN.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.emsSetMainParam">
+			</transition>
+		</state>
+			
+		<!-- This is the wreqGetCallerDetail State in Disabled mode -->
+		<state id="wreqGetCallerDetail">
+			<onentry>
+				<log expr="_sessionid + ': wreqGetCallerDetail block is currently disabled'" />
+			</onentry>
+			<transition target="$$_MY_PREFIX_$$.emsParseApiResult">
 			</transition>
 		</state>
 	</state>

@@ -366,7 +366,7 @@
 			
 			<assign name="AppState.var_personality" expr="10" />
 			<assign name="AppState.var_selectedLanguage" expr="'TH'" />				
-			<goto next="#ActionStart_MenuMerchant" />
+			<goto next="#asMenuMerchant" />
 		</block>
 	</form>
 
@@ -401,7 +401,7 @@
 	</form>
 
 	<!-- This is the ActionStartBlock block -->
-	<form id="ActionStart_MenuMerchant">
+	<form id="asMenuMerchant">
 		<block>
 			<log gvp:level="1">
 				<value expr="'AppState.var_actionID ='+setActionID1('MenuMerchant')"/>

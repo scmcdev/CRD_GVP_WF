@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datatypes="http://studio.genesyslab.com/common/datatypes/" xmlns:ipd="http://studio.genesyslab.com/ipd/" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xsi:schemaLocation="http://studio.genesyslab.com/common/datatypes/ http://studio.genesyslab.com/common/#//datatypes">
   <ipd:IpdDiagram xmi:id="_iyA0kAnSEd-uXr35XBE-zQ" name="default" designedUsing="Composer 8.1.541.07">
-    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_cIfEEMoPEe68I4r9pBbYsw" name="MainWorkflow" terminating="true" category="Workflow" cfgdbid="4826" cfgobjectname="GHB_IVR_Workflow.default.MainWorkflow" resource="/Workflows/Main.workflow"/>
+    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_cIfEEMoPEe68I4r9pBbYsw" name="MainWorkflow" terminating="true" category="Workflow" cfgdbid="4830" cfgobjectname="GHB_IVR_Workflow.default.MainWorkflow" resource="/Workflows/Main.workflow"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUMlmEeKsLq7WpeRZmQ" name="ws" value="http://www.genesyslab.com/modules/ws"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUclmEeKsLq7WpeRZmQ" name="queue" value="http://www.genesyslab.com/modules/queue"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUslmEeKsLq7WpeRZmQ" name="dialog" value="http://www.genesyslab.com/modules/dialog"/>
