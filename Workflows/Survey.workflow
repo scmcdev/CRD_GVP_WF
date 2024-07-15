@@ -51,12 +51,14 @@
       <variables xmi:type="datatypes:Variable" xmi:id="_lJBF_NIlEe6uK_9d0_3NtA" name="varHttpResp" value="undefined" description="Enter Description" type="User"/>
       <variables xmi:type="datatypes:Variable" xmi:id="_lJBF_dIlEe6uK_9d0_3NtA" name="varHttpStatus" value="undefined" description="Enter Description" type="User"/>
       <variables xmi:type="datatypes:Variable" xmi:id="_lJBF_tIlEe6uK_9d0_3NtA" name="varHttpResult" value="undefined" description="Enter Description" type="User"/>
+      <conditionalExceptions xmi:type="datatypes:TransitionCommonItem" xmi:id="_lOMNYCDMEe-p2eLwPxweAQ" name="error" event="error" condition=""/>
+      <conditionalExceptions xmi:type="datatypes:TransitionCommonItem" xmi:id="_lOMNYSDMEe-p2eLwPxweAQ" name="interaction.deleted" event="interaction.deleted" condition="_event.data.interactionid == system.InteractionID &amp;amp;&amp;amp; (!_event.data.resultof || _event.data.resultof == 'deletion')"/>
     </blocks>
     <blocks xmi:type="ird:DisconnectBlock" xmi:id="_kSwqsNIOEe6uK_9d0_3NtA" name="Disconnect1" terminating="true" category="Disconnect"/>
-    <blocks xmi:type="ird:EcmaScriptBlock" xmi:id="_kSwqsdIOEe6uK_9d0_3NtA" name="emsSetSurveyParam" category="ECMA Script" script="(function(){&#xD;&#xA;try {&#xD;&#xA;&#x9;// your code&#xD;&#xA;&#x9;//Retrieve Userdata&#xD;&#xA;&#x9;varSurveyVoiceUrl = getuData('SurveyVoiceUrl', system.InteractionID);&#xD;&#xA;&#x9;varSurveyTemplateId = getuData('SurveyTemplateId', system.InteractionID);&#xD;&#xA;&#x9;varSurveyApiToken = getuData('SurveyApiToken', system.InteractionID);&#xD;&#xA;&#x9;varSurveyVoiceUrl = &quot;http://192.168.2.161/arm/1105015_pcmu.wav&quot;;&#xD;&#xA;&#x9;if (isEmpty(varSurveyVoiceUrl) || isEmpty(varSurveyApiToken)) {&#xD;&#xA;&#x9;&#x9;throw new Error('Parameter is empty'); &#xD;&#xA;&#x9;}&#x9;&#xD;&#xA;} catch (err) {&#xD;&#xA;&#x9;// error handling code&#xD;&#xA;}&#xD;&#xA;})();">
+    <blocks xmi:type="ird:EcmaScriptBlock" xmi:id="_kSwqsdIOEe6uK_9d0_3NtA" name="emsSetSurveyParam" category="ECMA Script" script="(function(){&#xD;&#xA;try {&#xD;&#xA;&#x9;// your code&#xD;&#xA;&#x9;//Retrieve Userdata&#xD;&#xA;&#x9;varSurveyVoiceUrl = getuData('SurveyVoiceUrl', system.InteractionID);&#xD;&#xA;&#x9;varSurveyTemplateId = getuData('SurveyTemplateId', system.InteractionID);&#xD;&#xA;&#x9;varSurveyApiToken = getuData('SurveyApiToken', system.InteractionID);&#xD;&#xA;&#x9;//varSurveyVoiceUrl = &quot;http://192.168.2.161/arm/1105015_pcmu.wav&quot;;&#xD;&#xA;&#x9;__Log(&quot;Voice URL - &quot; + varSurveyVoiceUrl);&#xD;&#xA;&#x9;__Log(&quot;Template Id - &quot; + varSurveyTemplateId);&#xD;&#xA;&#x9;__Log(&quot;Token - &quot; + varSurveyApiToken);&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if (isEmpty(varSurveyVoiceUrl) || isEmpty(varSurveyApiToken)) {&#xD;&#xA;&#x9;&#x9;throw new Error('Parameter is empty'); &#xD;&#xA;&#x9;}&#x9;&#xD;&#xA;} catch (err) {&#xD;&#xA;&#x9;// error handling code&#xD;&#xA;}&#xD;&#xA;})();">
       <conditionalExceptions xmi:type="datatypes:TransitionCommonItem" xmi:id="_kSwqstIOEe6uK_9d0_3NtA" name="error" event="error" condition=""/>
     </blocks>
-    <blocks xmi:type="ird:UserInputBlock" xmi:id="_kSwqs9IOEe6uK_9d0_3NtA" name="GetScore" category="User Input" requestID="Variable(_data.pvLG)" device="Variable(system.ThisDN)" numDigits="1" ignoreDigits="#" backspaceDigits="" terminationDigits="*" clearInput="true" startTimeout="8" digitTimeout="2" collectedDigitsVariable="Variable(varInputValue)">
+    <blocks xmi:type="ird:UserInputBlock" xmi:id="_kSwqs9IOEe6uK_9d0_3NtA" name="GetScore" category="User Input" requestID="Variable(varReqId)" device="Variable(system.ThisDN)" numDigits="1" ignoreDigits="#" backspaceDigits="" terminationDigits="*" clearInput="true" startTimeout="8" digitTimeout="2" collectedDigitsVariable="Variable(varInputValue)">
       <conditionalExceptions xmi:type="datatypes:TransitionCommonItem" xmi:id="_kSwqtNIOEe6uK_9d0_3NtA" name="error.dialog.playandcollect" event="error.dialog.playandcollect" condition="_event.data.requestid==App_{block}['requestid']"/>
       <prompts xmi:type="datatypes_1:PlayMessageItem" xmi:id="_kSwqtdIOEe6uK_9d0_3NtA" value="varSurveyVoiceUrl" type="Text" userid=""/>
     </blocks>
@@ -72,14 +74,36 @@
       <loggingDetails>'varHttpResp : ' + varHttpResp</loggingDetails>
       <prompts xmi:type="datatypes_1:PlayMessageItem" xmi:id="_kSxRwdIOEe6uK_9d0_3NtA" value="varSurveyThkUrl" type="Text" userid=""/>
     </blocks>
+    <blocks xmi:type="ird:HTTPRestBlock" xmi:id="_eEUAoCDMEe-p2eLwPxweAQ" name="restSaveSurveyScoreIxnRel" category="HTTP Rest" uri="Variable(varSurveyApiUrl)" requestMethod="post" outputResult="Variable(varHttpResult)" jsonPayload="Variable(varSurveyPayload)" useJSONPayload="true" statusCode="Variable(varHttpStatus)" responseStatus="Variable(varHttpResp)" guaranteeHTTPExecution="true" retries="3" retryInterval="5">
+      <loggingDetails>'varSurveyApiReqBody - ' + varSurveyApiReqBody</loggingDetails>
+      <customHTTPHeaders xmi:type="datatypes:MultiSourceProperty" xmi:id="_eEUAoSDMEe-p2eLwPxweAQ" name="authorization" value="varSurveyApiToken" Source="Variable"/>
+    </blocks>
+    <blocks xmi:type="ird:EcmaScriptBlock" xmi:id="_eEUAoiDMEe-p2eLwPxweAQ" name="setReqBodyIxnRel" category="ECMA Script" script="(function(){&#xD;&#xA;&#x9;try {&#xD;&#xA;&#x9;&#x9;// your code&#xD;&#xA;&#x9;&#x9;varSurveyPayload  = new Object();&#xD;&#xA;&#x9;&#x9;varSurevyPayload.number = 0;&#xD;&#xA;&#x9;&#x9;varSurveyPayload.survey_temp_id = parseInt(varSurveyTemplateId);&#xD;&#xA;&#x9;&#x9;varSurveyPayload.phone = system.ANI;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;varSurveyApiReqBody = JSON.stringify({ number: parseInt(varInputValue), survey_temp_id: parseInt(varSurveyTemplateId), phone: system.ANI });&#x9;&#x9;&#xD;&#xA;&#x9;} catch (error) {&#xD;&#xA;&#x9;&#x9;// error handling code&#x9;&#xD;&#xA;&#x9;&#x9;varSurveyApiReqBody = &quot;{ \&quot;number\&quot;:&quot; + varInputValue + &quot;, \&quot;survey_temp_id\&quot;:&quot; + varSurveyTemplateId + &quot;,\&quot;phone\&quot;:\&quot;&quot; + system.ANI + &quot;\&quot;}&quot;;&#xD;&#xA;&#x9;}&#xD;&#xA;})();">
+      <loggingDetails>'Selected Score : ' + varInputValue</loggingDetails>
+      <loggingDetails>'Api token : ' + varSurveyApiToken</loggingDetails>
+    </blocks>
+    <blocks xmi:type="ird:EcmaScriptBlock" xmi:id="_2S3PUCDMEe-p2eLwPxweAQ" name="setReqBodyCustErr" category="ECMA Script" script="(function(){&#xD;&#xA;&#x9;try {&#xD;&#xA;&#x9;&#x9;// your code&#xD;&#xA;&#x9;&#x9;varSurveyPayload  = new Object();&#xD;&#xA;&#x9;&#x9;varSurevyPayload.number = 0;&#xD;&#xA;&#x9;&#x9;varSurveyPayload.survey_temp_id = parseInt(varSurveyTemplateId);&#xD;&#xA;&#x9;&#x9;varSurveyPayload.phone = system.ANI;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;varSurveyApiReqBody = JSON.stringify({ number: parseInt(varInputValue), survey_temp_id: parseInt(varSurveyTemplateId), phone: system.ANI });&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;__Log(&quot;Survey API request body - &quot; + varSurveyApiReqBody);&#xD;&#xA;&#x9;} catch (error) {&#xD;&#xA;&#x9;&#x9;// error handling code&#x9;&#xD;&#xA;&#x9;&#x9;varSurveyApiReqBody = &quot;{ \&quot;number\&quot;:&quot; + varInputValue + &quot;, \&quot;survey_temp_id\&quot;:&quot; + varSurveyTemplateId + &quot;,\&quot;phone\&quot;:\&quot;&quot; + system.ANI + &quot;\&quot;}&quot;;&#xD;&#xA;&#x9;}&#xD;&#xA;})();">
+      <loggingDetails>'Selected Score : ' + varInputValue</loggingDetails>
+      <loggingDetails>'Api token : ' + varSurveyApiToken</loggingDetails>
+    </blocks>
+    <blocks xmi:type="ird:HTTPRestBlock" xmi:id="_97UOdCDMEe-p2eLwPxweAQ" name="restSaveSurveyScoreCustErr" category="HTTP Rest" uri="Variable(varSurveyApiUrl)" requestMethod="post" outputResult="Variable(varHttpResult)" jsonPayload="Variable(varSurveyPayload)" useJSONPayload="true" statusCode="Variable(varHttpStatus)" responseStatus="Variable(varHttpResp)" guaranteeHTTPExecution="true" retries="3" retryInterval="5">
+      <loggingDetails>'varSurveyApiReqBody - ' + varSurveyApiReqBody</loggingDetails>
+      <customHTTPHeaders xmi:type="datatypes:MultiSourceProperty" xmi:id="_97UOdSDMEe-p2eLwPxweAQ" name="authorization" value="varSurveyApiToken" Source="Variable"/>
+    </blocks>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_7uvtMNz6EeKyG9aF7VXEXg" fromBlock="_6e2LkNz6EeKyG9aF7VXEXg" toBlock="_kSwqsdIOEe6uK_9d0_3NtA"/>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_kSxRwtIOEe6uK_9d0_3NtA" fromBlock="_kSwqsdIOEe6uK_9d0_3NtA" toBlock="_kSwqs9IOEe6uK_9d0_3NtA"/>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_kSx40NIOEe6uK_9d0_3NtA" fromBlock="_kSwqs9IOEe6uK_9d0_3NtA" toBlock="_kSwquNIOEe6uK_9d0_3NtA"/>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_kSx42NIOEe6uK_9d0_3NtA" fromBlock="_kSwquNIOEe6uK_9d0_3NtA" toBlock="_kSwqttIOEe6uK_9d0_3NtA"/>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_kSx439IOEe6uK_9d0_3NtA" fromBlock="_kSwqttIOEe6uK_9d0_3NtA" toBlock="_kSxRwNIOEe6uK_9d0_3NtA"/>
-    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_kSx45tIOEe6uK_9d0_3NtA" name="error" fromBlock="_kSwqsdIOEe6uK_9d0_3NtA" toBlock="_kSxRwNIOEe6uK_9d0_3NtA"/>
-    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_kSx47tIOEe6uK_9d0_3NtA" name="error.dialog.playandcollect" fromBlock="_kSwqs9IOEe6uK_9d0_3NtA" toBlock="_kSxRwNIOEe6uK_9d0_3NtA"/>
+    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_kSx45tIOEe6uK_9d0_3NtA" name="error" fromBlock="_kSwqsdIOEe6uK_9d0_3NtA" toBlock="_2S3PUCDMEe-p2eLwPxweAQ"/>
+    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_kSx47tIOEe6uK_9d0_3NtA" name="error.dialog.playandcollect" fromBlock="_kSwqs9IOEe6uK_9d0_3NtA" toBlock="_2S3PUCDMEe-p2eLwPxweAQ"/>
     <links xmi:type="ird:WorkflowOutputLink" xmi:id="_kSx49tIOEe6uK_9d0_3NtA" fromBlock="_kSxRwNIOEe6uK_9d0_3NtA" toBlock="_kSwqsNIOEe6uK_9d0_3NtA"/>
+    <links xmi:type="ird:WorkflowOutputLink" xmi:id="_eEUnsCDMEe-p2eLwPxweAQ" fromBlock="_eEUAoiDMEe-p2eLwPxweAQ" toBlock="_eEUAoCDMEe-p2eLwPxweAQ"/>
+    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_zBPtkCDMEe-p2eLwPxweAQ" name="interaction.deleted" fromBlock="_6e2LkNz6EeKyG9aF7VXEXg" toBlock="_eEUAoiDMEe-p2eLwPxweAQ"/>
+    <links xmi:type="ird:WorkflowOutputLink" xmi:id="_CSYVUCDNEe-p2eLwPxweAQ" fromBlock="_2S3PUCDMEe-p2eLwPxweAQ" toBlock="_97UOdCDMEe-p2eLwPxweAQ"/>
+    <links xmi:type="ird:WorkflowOutputLink" xmi:id="_CqghcCDNEe-p2eLwPxweAQ" fromBlock="_97UOdCDMEe-p2eLwPxweAQ" toBlock="_kSxRwNIOEe6uK_9d0_3NtA"/>
+    <links xmi:type="ird:WorkflowOutputLink" xmi:id="_D6lpQCDNEe-p2eLwPxweAQ" fromBlock="_eEUAoCDMEe-p2eLwPxweAQ" toBlock="_kSwqsNIOEe6uK_9d0_3NtA"/>
+    <links xmi:type="ird:WorkflowExceptionLink" xmi:id="_dybJ8CDNEe-p2eLwPxweAQ" name="error" fromBlock="_6e2LkNz6EeKyG9aF7VXEXg" toBlock="_eEUAoiDMEe-p2eLwPxweAQ"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_5WEloNz6EeKyG9aF7VXEXg" name="ws" value="http://www.genesyslab.com/modules/ws"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_5WElodz6EeKyG9aF7VXEXg" name="queue" value="http://www.genesyslab.com/modules/queue"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_5WElotz6EeKyG9aF7VXEXg" name="dialog" value="http://www.genesyslab.com/modules/dialog"/>
@@ -122,6 +146,26 @@
       <children xmi:type="notation:DecorationNode" xmi:id="_kSwDpdIOEe6uK_9d0_3NtA" type="4020"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_kSwDptIOEe6uK_9d0_3NtA" type="4021"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kSwDp9IOEe6uK_9d0_3NtA" x="400" y="610"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_eERkYCDMEe-p2eLwPxweAQ" type="2052" element="_eEUAoCDMEe-p2eLwPxweAQ" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_eERkYSDMEe-p2eLwPxweAQ" type="8103"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_eERkYiDMEe-p2eLwPxweAQ" type="8104"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eERkYyDMEe-p2eLwPxweAQ" x="120" y="300"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_eESLcCDMEe-p2eLwPxweAQ" type="1006" element="_eEUAoiDMEe-p2eLwPxweAQ" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_eESLcSDMEe-p2eLwPxweAQ" type="4008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_eESLciDMEe-p2eLwPxweAQ" type="4009"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eESLcyDMEe-p2eLwPxweAQ" x="120" y="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_2S2oQCDMEe-p2eLwPxweAQ" type="1006" element="_2S3PUCDMEe-p2eLwPxweAQ" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_2S2oQSDMEe-p2eLwPxweAQ" type="4008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_2S2oQiDMEe-p2eLwPxweAQ" type="4009"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2S2oQyDMEe-p2eLwPxweAQ" x="229" y="400"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_97UOcCDMEe-p2eLwPxweAQ" type="2052" element="_97UOdCDMEe-p2eLwPxweAQ" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_97UOcSDMEe-p2eLwPxweAQ" type="8103"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_97UOciDMEe-p2eLwPxweAQ" type="8104"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_97UOcyDMEe-p2eLwPxweAQ" x="229" y="500"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_33D0EooaEeG_nt9_QYQUcg"/>
     <edges xmi:type="notation:Connector" xmi:id="_7uywgNz6EeKyG9aF7VXEXg" type="3001" element="_7uvtMNz6EeKyG9aF7VXEXg" source="_6fiIENz6EeKyG9aF7VXEXg" target="_kSvclNIOEe6uK_9d0_3NtA" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
@@ -166,7 +210,7 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kSx45NIOEe6uK_9d0_3NtA" points="[1, 1, 0, -60]$[1, 61, 0, 0]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kSx45dIOEe6uK_9d0_3NtA" id="(0.4727272727272727,0.98)"/>
     </edges>
-    <edges xmi:type="notation:Edge" xmi:id="_kSx459IOEe6uK_9d0_3NtA" type="3002" element="_kSx45tIOEe6uK_9d0_3NtA" source="_kSvclNIOEe6uK_9d0_3NtA" target="_kSwDpNIOEe6uK_9d0_3NtA">
+    <edges xmi:type="notation:Edge" xmi:id="_kSx459IOEe6uK_9d0_3NtA" type="3002" element="_kSx45tIOEe6uK_9d0_3NtA" source="_kSvclNIOEe6uK_9d0_3NtA" target="_2S2oQCDMEe-p2eLwPxweAQ">
       <children xmi:type="notation:DecorationNode" xmi:id="_kSx46NIOEe6uK_9d0_3NtA" type="5002">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_kSx46dIOEe6uK_9d0_3NtA" x="5" y="5"/>
       </children>
@@ -175,13 +219,13 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kSx47NIOEe6uK_9d0_3NtA" points="[3, 27, -49, -360]$[52, 387, 0, 0]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kSx47dIOEe6uK_9d0_3NtA" id="(0.00909090909090909,0.46)"/>
     </edges>
-    <edges xmi:type="notation:Edge" xmi:id="_kSx479IOEe6uK_9d0_3NtA" type="3002" element="_kSx47tIOEe6uK_9d0_3NtA" source="_kSvcmNIOEe6uK_9d0_3NtA" target="_kSwDpNIOEe6uK_9d0_3NtA">
+    <edges xmi:type="notation:Edge" xmi:id="_kSx479IOEe6uK_9d0_3NtA" type="3002" element="_kSx47tIOEe6uK_9d0_3NtA" source="_kSvcmNIOEe6uK_9d0_3NtA" target="_2S2oQCDMEe-p2eLwPxweAQ">
       <children xmi:type="notation:DecorationNode" xmi:id="_kSx48NIOEe6uK_9d0_3NtA" type="5002">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_kSx48dIOEe6uK_9d0_3NtA" x="5" y="5"/>
       </children>
       <styles xmi:type="notation:RoutingStyle" xmi:id="_kSx48tIOEe6uK_9d0_3NtA" roundedBendpointsRadius="10" routing="Rectilinear"/>
       <styles xmi:type="notation:FontStyle" xmi:id="_kSx489IOEe6uK_9d0_3NtA" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kSx49NIOEe6uK_9d0_3NtA" points="[4, 23, -49, -260]$[53, 283, 0, 0]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kSx49NIOEe6uK_9d0_3NtA" points="[-55, 0, 116, -100]$[-171, 0, 0, -100]$[-171, 75, 0, -25]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kSx49dIOEe6uK_9d0_3NtA" id="(0.0,0.54)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_kSx499IOEe6uK_9d0_3NtA" type="3001" element="_kSx49tIOEe6uK_9d0_3NtA" source="_kSwDpNIOEe6uK_9d0_3NtA" target="_kSvckNIOEe6uK_9d0_3NtA" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
@@ -192,6 +236,60 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kSx4-9IOEe6uK_9d0_3NtA" points="[2, 0, 0, -72]$[2, 70, 0, -2]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kSx4_NIOEe6uK_9d0_3NtA" id="(0.4909090909090909,1.0)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kSx4_dIOEe6uK_9d0_3NtA" id="(0.509090909090909,0.04)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_eEUnsSDMEe-p2eLwPxweAQ" type="3001" element="_eEUnsCDMEe-p2eLwPxweAQ" source="_eESLcCDMEe-p2eLwPxweAQ" target="_eERkYCDMEe-p2eLwPxweAQ" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
+      <children xmi:type="notation:DecorationNode" xmi:id="_eEUnsiDMEe-p2eLwPxweAQ" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_eEUnsyDMEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_eEUntCDMEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eEUntSDMEe-p2eLwPxweAQ" points="[0, 25, -159, -75]$[0, 45, -159, -55]$[159, 45, 0, -55]$[159, 75, 0, -25]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eEUntiDMEe-p2eLwPxweAQ" id="(0.509090909090909,0.96)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_zBTX8CDMEe-p2eLwPxweAQ" type="3002" element="_zBPtkCDMEe-p2eLwPxweAQ" source="_6fiIENz6EeKyG9aF7VXEXg" target="_eESLcCDMEe-p2eLwPxweAQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_zBUmECDMEe-p2eLwPxweAQ" type="5002">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_zBUmESDMEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:RoutingStyle" xmi:id="_zBTX8SDMEe-p2eLwPxweAQ" roundedBendpointsRadius="10" routing="Rectilinear"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_zBTX8iDMEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zBTX8yDMEe-p2eLwPxweAQ" points="[0, 0, 223, -77]$[-223, 77, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zBYQcCDMEe-p2eLwPxweAQ" id="(0.0,0.66)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zBYQcSDMEe-p2eLwPxweAQ" id="(0.5181818181818182,0.0)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_CSaKgCDNEe-p2eLwPxweAQ" type="3001" element="_CSYVUCDNEe-p2eLwPxweAQ" source="_2S2oQCDMEe-p2eLwPxweAQ" target="_97UOcCDMEe-p2eLwPxweAQ" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
+      <children xmi:type="notation:DecorationNode" xmi:id="_CSbYoCDNEe-p2eLwPxweAQ" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_CSbYoSDNEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_CSaxkCDNEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CSaxkSDNEe-p2eLwPxweAQ" points="[-1, 0, 0, -55]$[-2, 50, -1, -5]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CSeb8CDNEe-p2eLwPxweAQ" id="(0.5,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CSfDACDNEe-p2eLwPxweAQ" id="(0.4909090909090909,0.1)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_CqhvkCDNEe-p2eLwPxweAQ" type="3001" element="_CqghcCDNEe-p2eLwPxweAQ" source="_97UOcCDMEe-p2eLwPxweAQ" target="_kSwDpNIOEe6uK_9d0_3NtA" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
+      <children xmi:type="notation:DecorationNode" xmi:id="_CqhvkyDNEe-p2eLwPxweAQ" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_CqhvlCDNEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_CqhvkSDNEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CqhvkiDNEe-p2eLwPxweAQ" points="[0, 0, -168, -60]$[168, 60, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CqkL0CDNEe-p2eLwPxweAQ" id="(0.5181818181818182,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CqkL0SDNEe-p2eLwPxweAQ" id="(0.4909090909090909,0.0)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_D6m3YCDNEe-p2eLwPxweAQ" type="3001" element="_D6lpQCDNEe-p2eLwPxweAQ" source="_eERkYCDMEe-p2eLwPxweAQ" target="_kSvckNIOEe6uK_9d0_3NtA" roundedBendpointsRadius="10" routing="Rectilinear" closestDistance="true" lineColor="16711680">
+      <children xmi:type="notation:DecorationNode" xmi:id="_D6oFgCDNEe-p2eLwPxweAQ" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_D6oFgSDNEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_D6m3YSDNEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_D6m3YiDNEe-p2eLwPxweAQ" points="[0, 25, -280, -405]$[0, 375, -280, -55]$[280, 375, 0, -55]$[280, 405, 0, -25]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_D6rv4CDNEe-p2eLwPxweAQ" id="(0.5,1.0)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_dycYECDNEe-p2eLwPxweAQ" type="3002" element="_dybJ8CDNEe-p2eLwPxweAQ" source="_6fiIENz6EeKyG9aF7VXEXg" target="_eESLcCDMEe-p2eLwPxweAQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_dyc_IyDNEe-p2eLwPxweAQ" type="5002">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_dyc_JCDNEe-p2eLwPxweAQ" x="5" y="5"/>
+      </children>
+      <styles xmi:type="notation:RoutingStyle" xmi:id="_dyc_ICDNEe-p2eLwPxweAQ" roundedBendpointsRadius="10" routing="Rectilinear"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_dyc_ISDNEe-p2eLwPxweAQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_dyc_IiDNEe-p2eLwPxweAQ" points="[-55, -9, 225, -109]$[-195, -9, 85, -109]$[-195, 15, 85, -85]$[-280, 15, 0, -85]$[-280, 75, 0, -25]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dygpgCDNEe-p2eLwPxweAQ" id="(0.0,0.3)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dygpgSDNEe-p2eLwPxweAQ" id="(0.509090909090909,0.0)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

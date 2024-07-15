@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datatypes="http://studio.genesyslab.com/common/datatypes/" xmlns:ipd="http://studio.genesyslab.com/ipd/" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xsi:schemaLocation="http://studio.genesyslab.com/common/datatypes/ http://studio.genesyslab.com/common/#//datatypes">
   <ipd:IpdDiagram xmi:id="_iyA0kAnSEd-uXr35XBE-zQ" name="default" designedUsing="Composer 8.1.541.07">
-    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_cIfEEMoPEe68I4r9pBbYsw" name="MainWorkflow" terminating="true" category="Workflow" cfgdbid="4830" cfgobjectname="GHB_IVR_Workflow.default.MainWorkflow" resource="/Workflows/Main.workflow"/>
+    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_cIfEEMoPEe68I4r9pBbYsw" name="MainWorkflow" terminating="true" category="Workflow" cfgdbid="4848" cfgobjectname="CRD_GVP_Workflow.default.MainWorkflow" resource="/Workflows/Main.workflow"/>
+    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_sSjT4ELtEe-6Yb5JFFCYug" name="ECSWorkflow" terminating="true" category="Workflow" cfgdbid="4849" cfgobjectname="CRD_GVP_Workflow.default.ECSWorkflow" resource="/Workflows/EndCallSurvey.workflow"/>
+    <blocks xmi:type="ipd:WorkflowBlock" xmi:id="_24eJsELtEe-6Yb5JFFCYug" name="CampaignSurvey" terminating="true" category="Workflow" cfgdbid="4850" cfgobjectname="CRD_GVP_Workflow.default.CampaignSurvey" resource="/Workflows/Survey.workflow"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUMlmEeKsLq7WpeRZmQ" name="ws" value="http://www.genesyslab.com/modules/ws"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUclmEeKsLq7WpeRZmQ" name="queue" value="http://www.genesyslab.com/modules/queue"/>
     <namespaces xmi:type="datatypes:Property" xmi:id="_NZwpUslmEeKsLq7WpeRZmQ" name="dialog" value="http://www.genesyslab.com/modules/dialog"/>
@@ -32,6 +34,16 @@
       <children xmi:type="notation:DecorationNode" xmi:id="_cIgSMMoPEe68I4r9pBbYsw" type="5011"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_cIgSMcoPEe68I4r9pBbYsw" type="5012"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cIfrIcoPEe68I4r9pBbYsw" x="260" y="120"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_sSoMYELtEe-6Yb5JFFCYug" type="2006" element="_sSjT4ELtEe-6Yb5JFFCYug" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_sSozcELtEe-6Yb5JFFCYug" type="5011"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_sSozcULtEe-6Yb5JFFCYug" type="5012"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sSoMYULtEe-6Yb5JFFCYug" x="710" y="110"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_24kQUELtEe-6Yb5JFFCYug" type="2006" element="_24eJsELtEe-6Yb5JFFCYug" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_24k3YELtEe-6Yb5JFFCYug" type="5011"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_24k3YULtEe-6Yb5JFFCYug" type="5012"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_24kQUULtEe-6Yb5JFFCYug" x="587" y="353"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_iyA0kgnSEd-uXr35XBE-zQ"/>
   </notation:Diagram>

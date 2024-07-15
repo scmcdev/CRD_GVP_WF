@@ -213,3 +213,40 @@ function distance(lat1, lon1, lat2, lon2, unit) {
         return dist;
     }
 }
+
+
+function isHoliday(holidays){
+	
+	if(holidays === null || holidays === '')
+	{
+		return false;
+	}
+	
+	// Create a date object from a date string
+	var date = new Date();
+
+	// Get year, month, and day part from the date
+	//var year = date.toLocaleString("default", { year: "numeric" });
+	//var month = date.toLocaleString("default", { month: "2-digit" });
+	//var day = date.toLocaleString("default", { day: "2-digit" });
+	 
+	var year = date.getFullYear();
+	
+	var month = date.getMonth() + 1;
+	if (date.getMonth() + 1 <10){
+		month = "0" + month;
+	}
+		
+	var day = date.getDate();
+	if (date.getDate() <10){
+		day = "0" + day;
+	}
+
+	// Generate yyyy-mm-dd date string
+	var formattedDate = year + "-" + month + "-" + day;
+	
+	var holidayarr = holidays.split(",");
+	
+	return (holidayarr.indexOf(formattedDate) > -1);
+	
+}

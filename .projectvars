@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="ASCII"?>
 <projectvars:ProjectVariables xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:projectvars="http://studio.genesyslab.com/projectvars">
-  <variables name="pvLG" value="''" description="Enter Description" type="User" scope="Project"/>
-  <variables name="pvLT" value="''" description="Enter Description" type="User" scope="Project"/>
-  <variables name="pvPSAPCode" value="''" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpApiBaseURL" value="'https://wizdemo-api.wiz-solution.com'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpAppKey" value="'608608ed442341e78183358ace86971d'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpCallJourney" value="'/v1/apienpoint/genesys/callJournal'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpEndCallSurveyURL" value="'https://wizdemo-api.wiz-solution.com/v1/apienpoint/genesys/submitivrsurvey'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpGetDetailByPhone" value="'/v1/apienpoint/genesys/getDetailByPhoneKey'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpSignin" value="'/auth/genesys/signin'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="cdpSignoff" value="'/auth/genesys/signout'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultLanguage" value="'th-TH'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultMusic" value="'music'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultMusicTimeout" value="30" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultPriority" value="1" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultSectionName" value="'OPM'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultTargetInfiniteTimeout" value="99999" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultTargetTimeout" value="30" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gaxAnncPath" value="'annc'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gaxARBaseURL" value="'http://192.168.2.161/arm'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gaxMusicPath" value="'audio'" description="Enter Description" type="User" scope="Project"/>
+  <variables name="globalListInfo" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="globalListName" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gnsEndCAllSurveyURL" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gvpEndCallSurveyURL" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gvpIVRProfileMap" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="holiday" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="kvlist" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="personality" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="rpInfo" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="rpPGName" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="rpVQName" value="undefined" description="Enter Description" type="User" scope="Project"/>
 </projectvars:ProjectVariables>

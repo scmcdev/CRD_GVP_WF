@@ -59,9 +59,34 @@
 				var App_restSaveSurveyScore = new Object();
 				var App_setRequestBody1 = new Object();
 				var App_playThanks = new Object();
+				var App_restSaveSurveyScoreIxnRel = new Object();
+				var App_setReqBodyIxnRel = new Object();
+				var App_setReqBodyCustErr = new Object();
+				var App_restSaveSurveyScoreCustErr = new Object();
 			</script>
 		</onentry>
 		
+			<transition event="error" target="$$_MY_PREFIX_$$.setReqBodyIxnRel">
+				<log expr="'Composer Application: Survey global error'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("Entry1", _event);
+				]]>
+				</script>
+				<if cond="_event.name=='error.queue.submit'">
+					<assign location="system.LastSubmitRequestId" expr="_event.data.requestid"/>
+				</if>
+			</transition>
+			<transition event="interaction.deleted" cond="_event.data.interactionid == system.InteractionID &amp;&amp; (!_event.data.resultof || _event.data.resultof == 'deletion')" target="$$_MY_PREFIX_$$.setReqBodyIxnRel">
+				<log expr="'Composer Application: Survey global error'" />
+				<log expr="'ERROR: ' + _event.toSource()" />
+				<script>
+				<![CDATA[
+					storeException("Entry1", _event);
+				]]>
+				</script>
+			</transition>
 			
 		<!-- This is the Entry1 State -->
 		<state id="Entry1">
@@ -130,7 +155,11 @@
 						varSurveyVoiceUrl = getuData('SurveyVoiceUrl', system.InteractionID);
 						varSurveyTemplateId = getuData('SurveyTemplateId', system.InteractionID);
 						varSurveyApiToken = getuData('SurveyApiToken', system.InteractionID);
-						varSurveyVoiceUrl = &quot;http://192.168.2.161/arm/1105015_pcmu.wav&quot;;
+						//varSurveyVoiceUrl = &quot;http://192.168.2.161/arm/1105015_pcmu.wav&quot;;
+						__Log(&quot;Voice URL - &quot; + varSurveyVoiceUrl);
+						__Log(&quot;Template Id - &quot; + varSurveyTemplateId);
+						__Log(&quot;Token - &quot; + varSurveyApiToken);
+						
 						if (isEmpty(varSurveyVoiceUrl) || isEmpty(varSurveyApiToken)) {
 							throw new Error('Parameter is empty'); 
 						}	
@@ -146,7 +175,7 @@
 			<transition event="emsSetSurveyParam.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.GetScore">
 				<script>storeEvent("emsSetSurveyParam", _event);</script>
 			</transition>
-			<transition event="error" target="$$_MY_PREFIX_$$.playThanks">
+			<transition event="error" target="$$_MY_PREFIX_$$.setReqBodyCustErr">
 				<log expr="'Composer Application: Survey Block: emsSetSurveyParam'" />
 				<log expr="'ERROR: ' + _event.toSource()" />
 				<script>
@@ -161,14 +190,14 @@
 		<!-- This is the GetScore State -->
 		<state id="GetScore">
 			<onentry>
-				<dialog:playandcollect interactionid="system.InteractionID" requestid="_data.pvLG" language="'English (US)'" device="system.ThisDN">
+				<dialog:playandcollect interactionid="system.InteractionID" requestid="varReqId" language="'English (US)'" device="system.ThisDN">
 					<dialog:prompts type="ann">
 						<dialog:prompt interrupt="true" text="varSurveyVoiceUrl"/>
 					</dialog:prompts>
 					<dialog:input clear="true"  total_timeout="0" digit_timeout="2" start_timeout="8" ignore_digits="'#'" term_digits="'*'" max_digits="1"/>
 				</dialog:playandcollect>
 	 		</onentry>
-			<transition event="dialog.playandcollect.done" cond="_event.data.requestid==_data.pvLG" target="$$_MY_PREFIX_$$.setRequestBody1">
+			<transition event="dialog.playandcollect.done" cond="_event.data.requestid==varReqId" target="$$_MY_PREFIX_$$.setRequestBody1">
 				<script>storeEvent("GetScore", _event);</script>
 				<log expr="'PlayAndCollect done event received.'" />
 				<log expr="'Event data :' + _event.data.digits" />
@@ -176,7 +205,7 @@
 	        	<log expr="'Data Assigned (varInputValue): ' + _event.data.digits" />
 				<log expr="'PlayAndCollect finished'"/>
 			</transition>
-			<transition event="error.dialog.playandcollect" cond="_event.data.requestid==App_GetScore['requestid']" target="$$_MY_PREFIX_$$.playThanks">
+			<transition event="error.dialog.playandcollect" cond="_event.data.requestid==App_GetScore['requestid']" target="$$_MY_PREFIX_$$.setReqBodyCustErr">
 				<log expr="'Composer Application: Survey Block: GetScore'" />
 				<log expr="'ERROR: ' + _event.toSource()" />
 				<script>
@@ -265,6 +294,129 @@
 			</transition>
 		</state>
 		
+
+		<!-- This is the restSaveSurveyScoreIxnRel State -->
+		<state id="restSaveSurveyScoreIxnRel">
+			<onentry>
+			    <log expr="_sessionid + ': Inside HTTPRest Block: restSaveSurveyScoreIxnRel'" />
+				<log expr="'varSurveyApiReqBody - ' + varSurveyApiReqBody" level="2" />
+
+				<script>
+				 var customHeaders = new Object();
+				 customHeaders["authorization"] = varSurveyApiToken;
+    			</script>
+				<session:fetch requestid="App_restSaveSurveyScoreIxnRel['requestid']"
+					       srcexpr="varSurveyApiUrl" method="'post'" enctype="'application/json'" maxage="0"
+					       maxstale="0" type="'application/json'" gdelivery="true" 
+					       gd_retries="3" gd_retry_interval="5" timeout="10" headers="customHeaders">
+				   <content _expr="varSurveyPayload"/>
+				</session:fetch>
+	  		</onentry>
+			<transition event="session.fetch.done" cond="_event.data.requestid==App_restSaveSurveyScoreIxnRel['requestid']" target="$$_MY_PREFIX_$$.Disconnect1">
+				<log expr="'Session FETCH  DONE'" />
+				<log expr="'Composer Application:Survey Block: restSaveSurveyScoreIxnRel'" />
+				<log expr="'Data Fetched:' + _event.data.content" />
+				<script>storeEvent("restSaveSurveyScoreIxnRel", _event);</script>
+				<script>App_restSaveSurveyScoreIxnRel['data'] = eval('(' + _event.data.content + ')');</script>
+				<assign location="varHttpResult" expr="App_restSaveSurveyScoreIxnRel['data']" />
+				<log expr="'Data Assigned: ' + varHttpResult.toSource()"/>
+				<assign location="varHttpResp" expr="true"/>
+				<assign location="varHttpStatus" expr="200"/>				
+	    	</transition>
+		</state>
+
+		<!-- This is the setReqBodyIxnRel State -->
+		<state id="setReqBodyIxnRel">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: setReqBodyIxnRel'"/>
+				<log expr="'Selected Score : ' + varInputValue" level="2" />
+				<log expr="'Api token : ' + varSurveyApiToken" level="2" />
+				<script>
+					(function(){
+						try {
+							// your code
+							varSurveyPayload  = new Object();
+							varSurevyPayload.number = 0;
+							varSurveyPayload.survey_temp_id = parseInt(varSurveyTemplateId);
+							varSurveyPayload.phone = system.ANI;
+							
+							varSurveyApiReqBody = JSON.stringify({ number: parseInt(varInputValue), survey_temp_id: parseInt(varSurveyTemplateId), phone: system.ANI });		
+						} catch (error) {
+							// error handling code	
+							varSurveyApiReqBody = &quot;{ \&quot;number\&quot;:&quot; + varInputValue + &quot;, \&quot;survey_temp_id\&quot;:&quot; + varSurveyTemplateId + &quot;,\&quot;phone\&quot;:\&quot;&quot; + system.ANI + &quot;\&quot;}&quot;;
+						}
+					})();
+				</script>
+				<send event="'setReqBodyIxnRel.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="setReqBodyIxnRel.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.restSaveSurveyScoreIxnRel">
+				<script>storeEvent("setReqBodyIxnRel", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the setReqBodyCustErr State -->
+		<state id="setReqBodyCustErr">
+			<onentry>
+				<log expr="_sessionid + ': Inside Script Block: setReqBodyCustErr'"/>
+				<log expr="'Selected Score : ' + varInputValue" level="2" />
+				<log expr="'Api token : ' + varSurveyApiToken" level="2" />
+				<script>
+					(function(){
+						try {
+							// your code
+							varSurveyPayload  = new Object();
+							varSurevyPayload.number = 0;
+							varSurveyPayload.survey_temp_id = parseInt(varSurveyTemplateId);
+							varSurveyPayload.phone = system.ANI;
+							
+							varSurveyApiReqBody = JSON.stringify({ number: parseInt(varInputValue), survey_temp_id: parseInt(varSurveyTemplateId), phone: system.ANI });		
+							__Log(&quot;Survey API request body - &quot; + varSurveyApiReqBody);
+						} catch (error) {
+							// error handling code	
+							varSurveyApiReqBody = &quot;{ \&quot;number\&quot;:&quot; + varInputValue + &quot;, \&quot;survey_temp_id\&quot;:&quot; + varSurveyTemplateId + &quot;,\&quot;phone\&quot;:\&quot;&quot; + system.ANI + &quot;\&quot;}&quot;;
+						}
+					})();
+				</script>
+				<send event="'setReqBodyCustErr.script.done'">
+    	<param name="resolveid" expr="_my_prefix"/>
+    	</send>
+			</onentry>
+			<transition event="setReqBodyCustErr.script.done" cond="_event.data.resolveid== _my_prefix" target="$$_MY_PREFIX_$$.restSaveSurveyScoreCustErr">
+				<script>storeEvent("setReqBodyCustErr", _event);</script>
+			</transition>
+		</state>
+
+		<!-- This is the restSaveSurveyScoreCustErr State -->
+		<state id="restSaveSurveyScoreCustErr">
+			<onentry>
+			    <log expr="_sessionid + ': Inside HTTPRest Block: restSaveSurveyScoreCustErr'" />
+				<log expr="'varSurveyApiReqBody - ' + varSurveyApiReqBody" level="2" />
+
+				<script>
+				 var customHeaders = new Object();
+				 customHeaders["authorization"] = varSurveyApiToken;
+    			</script>
+				<session:fetch requestid="App_restSaveSurveyScoreCustErr['requestid']"
+					       srcexpr="varSurveyApiUrl" method="'post'" enctype="'application/json'" maxage="0"
+					       maxstale="0" type="'application/json'" gdelivery="true" 
+					       gd_retries="3" gd_retry_interval="5" timeout="10" headers="customHeaders">
+				   <content _expr="varSurveyPayload"/>
+				</session:fetch>
+	  		</onentry>
+			<transition event="session.fetch.done" cond="_event.data.requestid==App_restSaveSurveyScoreCustErr['requestid']" target="$$_MY_PREFIX_$$.playThanks">
+				<log expr="'Session FETCH  DONE'" />
+				<log expr="'Composer Application:Survey Block: restSaveSurveyScoreCustErr'" />
+				<log expr="'Data Fetched:' + _event.data.content" />
+				<script>storeEvent("restSaveSurveyScoreCustErr", _event);</script>
+				<script>App_restSaveSurveyScoreCustErr['data'] = eval('(' + _event.data.content + ')');</script>
+				<assign location="varHttpResult" expr="App_restSaveSurveyScoreCustErr['data']" />
+				<log expr="'Data Assigned: ' + varHttpResult.toSource()"/>
+				<assign location="varHttpResp" expr="true"/>
+				<assign location="varHttpStatus" expr="200"/>				
+	    	</transition>
+		</state>
 	</state>
 	
 </scxml>
