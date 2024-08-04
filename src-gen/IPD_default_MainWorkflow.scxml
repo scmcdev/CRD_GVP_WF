@@ -73,6 +73,14 @@
 			<data id="holiday"/>
 			<data id="kvlist"/>
 			<data id="personality"/>
+			<data id="routeBusyAnnc1"/>
+			<data id="routeBusyAnnc2"/>
+			<data id="routeEntryId1"/>
+			<data id="routeEntryId2"/>
+			<data id="routeMaxErr"/>
+			<data id="routeNoInput"/>
+			<data id="routeNoMatch"/>
+			<data id="routePreXfer"/>
 			<data id="rpInfo"/>
 			<data id="rpPGName"/>
 			<data id="rpVQName"/>
@@ -105,6 +113,14 @@
  					if (typeof _data.holiday == "undefined") _data.holiday = undefined;
  					if (typeof _data.kvlist == "undefined") _data.kvlist = undefined;
  					if (typeof _data.personality == "undefined") _data.personality = undefined;
+ 					if (typeof _data.routeBusyAnnc1 == "undefined") _data.routeBusyAnnc1 = undefined;
+ 					if (typeof _data.routeBusyAnnc2 == "undefined") _data.routeBusyAnnc2 = undefined;
+ 					if (typeof _data.routeEntryId1 == "undefined") _data.routeEntryId1 = undefined;
+ 					if (typeof _data.routeEntryId2 == "undefined") _data.routeEntryId2 = undefined;
+ 					if (typeof _data.routeMaxErr == "undefined") _data.routeMaxErr = undefined;
+ 					if (typeof _data.routeNoInput == "undefined") _data.routeNoInput = undefined;
+ 					if (typeof _data.routeNoMatch == "undefined") _data.routeNoMatch = undefined;
+ 					if (typeof _data.routePreXfer == "undefined") _data.routePreXfer = undefined;
  					if (typeof _data.rpInfo == "undefined") _data.rpInfo = undefined;
  					if (typeof _data.rpPGName == "undefined") _data.rpPGName = undefined;
  					if (typeof _data.rpVQName == "undefined") _data.rpVQName = undefined;

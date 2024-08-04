@@ -25,6 +25,14 @@
   <variables name="holiday" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="kvlist" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="personality" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeBusyAnnc1" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeBusyAnnc2" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeEntryId1" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeEntryId2" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeMaxErr" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeNoInput" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routeNoMatch" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="routePreXfer" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="rpInfo" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="rpPGName" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="rpVQName" value="undefined" description="Enter Description" type="User" scope="Project"/>
