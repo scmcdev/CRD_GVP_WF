@@ -1,4 +1,5 @@
 ComposerProject.EnableDynamicPrompts=true
+ComposerProject.WAR.DisplayName=CRD Util Callflow
 ComposerProject.applicationDetach=false
 ComposerProject.codegen.mode=DEBUG
 ComposerProject.external.event.queue=true

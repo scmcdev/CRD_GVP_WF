@@ -189,12 +189,9 @@
 				var App_subRouting = new Object();
 				var App_emsAttachIDCard = new Object();
 				var App_TargetByAG = new Object();
-				var App_playAnnc1 = new Object();
-				var App_playAnnc2 = new Object();
 				var App_playPreXferAnnc = new Object();
-				var App_PauseTreatment1 = new Object();
 				var App_forceLG = new Object();
-				var App_PauseTreatment2 = new Object();
+				var App_PlayApplication1 = new Object();
 			</script>
 		</onentry>
 		
@@ -550,8 +547,8 @@
 							data['ghb-company'] = apiCompany;
 							App_UserData1['setudata'] = true;
 						}
-						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1722595110) {
-							data['Composer_internal_key'] = 1722595110;
+						if (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] != 1722971486) {
+							data['Composer_internal_key'] = 1722971486;
 							App_UserData1['setudata'] = true;
 						}
 						if (App_UserData1['setudata']) {
@@ -565,7 +562,7 @@
 				<script>storeEvent("UserData1", _event);</script>
 			</transition>
 			<transition event="interaction.udata.changed" target="$$_MY_PREFIX_$$._reserved_UserData1_outputTransition" cond="(typeof App_UserData1['setudata'] != 'undefined')
-																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1722595110)">
+																						&amp;&amp; (_genesys.ixn.interactions[system.InteractionID].udata['Composer_internal_key'] == 1722971486)">
 					<cancel sendid="App_UserData1['requestid']"/>
 					<script>storeEvent("UserData1", _event);</script>
 			</transition>
@@ -1860,22 +1857,11 @@
 					<queue:submit route="false" requestid="App_TargetByAG['requestid']" interactionid="system.InteractionID" queue="routeVQName" timeout="toNumber(_data.defaultTargetTimeout)" priority="toNumber(_data.defaultPriority)" clearontimeout="true" ordertype="'max'" orderstat="'StatAgentLoading'">
 						<dialog:runtreatments>
 							<!-- Busy treatment code is generated based on treatment blocks connected to this Target block -->	
-				<!-- playAnnc1 busy treatment block -->
-				<dialog:play requestid="App_TargetByAG['treatmentrequestid']" language="'English (US)'" interactionid="system.InteractionID" device="system.ThisDN">
-		   			<dialog:prompts type="ann">
-						<dialog:prompt interrupt="false" text="_data.gaxARBaseURL+_data.routeBusyAnnc1+_data.personality+'.wav'"/>
-		   			</dialog:prompts>
-	    		</dialog:play>
-				<!-- PauseTreatment1 busy treatment block -->
-						<dialog:pause duration="2"/>
-				<!-- playAnnc2 busy treatment block -->
-				<dialog:play requestid="App_TargetByAG['treatmentrequestid']" language="'English (US)'" interactionid="system.InteractionID" device="system.ThisDN">
-		   			<dialog:prompts type="ann">
-						<dialog:prompt interrupt="false" text="_data.gaxARBaseURL+_data.routeBusyAnnc2+_data.personality+'_pcma.wav'"/>
-		   			</dialog:prompts>
-	    		</dialog:play>
-				<!-- PauseTreatment2 busy treatment block -->
-						<dialog:pause duration="2"/>
+				<!-- PlayApplication1 busy treatment block -->
+				<dialog:start type="'applid'" interactionid="system.InteractionID" requestid="App_TargetByAG['treatmentrequestid']">
+					<param name="APP_URI" expr="system.RelativePathURL+'src-gen/subBusyAnncCRD.vxml'" />
+    				<param name="LANGUAGE" expr="'English (US)'" />
+				</dialog:start>
 						</dialog:runtreatments>
 						<queue:targets>
 							<queue:targetid expr="routeTargetExpr"/>						
@@ -1999,10 +1985,6 @@
 		</state>
 
 		
-
-		
-
-		
 		<!-- This is the playPreXferAnnc State -->
 		<state id="playPreXferAnnc">
 			<onentry>
@@ -2016,8 +1998,6 @@
 				<script>storeEvent("playPreXferAnnc", _event);</script>
 			</transition>
 		</state>
-		
-
 		
 
 		<!-- This is the forceLG State -->
@@ -2038,7 +2018,10 @@
 			</state>
 		</state>
 
-		
+
+	
+	
+	
 			
 		<!-- This is the bchIsVIP State in Disabled mode -->
 		<state id="bchIsVIP">

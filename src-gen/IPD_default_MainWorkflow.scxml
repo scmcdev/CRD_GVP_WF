@@ -20,6 +20,7 @@
 	<script><xi:include href="../include/DateTime.js" parse="text"/></script>
 	<script><xi:include href="../include/ListManipulation.js" parse="text"/></script>
 	<script><xi:include href="../include/MiscIRDFunctions.js" parse="text"/></script>
+	<script><xi:include href="../include/user/Api.js" parse="text"/></script>
 	<script><xi:include href="../include/user/CustomDateTime.js" parse="text"/></script>
 	<script><xi:include href="../include/user/Global.js" parse="text"/></script>
 	<script><xi:include href="../include/user/ReadConfig.js" parse="text"/></script>
