@@ -1,13 +1,4 @@
-ComposerProject.EnableDynamicPrompts=true
-ComposerProject.WAR.DisplayName=CRD Util Callflow
-ComposerProject.applicationDetach=false
+ComposerProject.WAR.DisplayName=GHB GVP Workflow Application v.3.0.0
 ComposerProject.codegen.mode=DEBUG
-ComposerProject.external.event.queue=true
-ComposerProject.external.submitter=true
 ComposerProject.initialize.GVPSessionID=true
-ComposerProject.keepGVPSessionAlive=false
-ComposerProject.keepGVPSessiontimeout=60
-ComposerProject.startWorkflowOnRouteRequest=false
-Voice_Project_Audio_Encoding=ULAW
-Voice_Project_Audio_File_Type=WAV
 eclipse.preferences.version=1

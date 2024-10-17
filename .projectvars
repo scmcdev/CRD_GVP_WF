@@ -36,4 +36,7 @@
   <variables name="rpInfo" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="rpPGName" value="undefined" description="Enter Description" type="User" scope="Project"/>
   <variables name="rpVQName" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultSwitch" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="defaultStatServer" value="undefined" description="Enter Description" type="User" scope="Project"/>
+  <variables name="gvpRoutingTable" value="undefined" description="Enter Description" type="User" scope="Project"/>
 </projectvars:ProjectVariables>
